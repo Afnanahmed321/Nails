@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/1.%20Splash%20screen/html%20%26%20css%20files/index.html",
+      "permanent": false
+    }
+  ]
+}
