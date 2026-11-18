@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Assign Task | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assign.css">
+</head>
+<body>
+    <main class="assign-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+
+        <header class="topbar">
+            <a class="back-button" href="../../5. Home Page/html & css files/home.html" aria-label="Back to Home">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy">
+                <strong>nails</strong>
+                <span>next action inputs linedup system</span>
+            </div>
+        </header>
+
+        <section class="assign-content" aria-labelledby="assign-title">
+            <div class="page-heading">
+                <div class="send-tile" aria-hidden="true">
+                    <svg viewBox="0 0 40 40"><path d="m5 18 29-12-10 30-6-13L5 18Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m18 23 16-17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                </div>
+                <div>
+                    <h1 id="assign-title">Assign Task</h1>
+                    <p>Create and send a new task.</p>
+                </div>
+            </div>
+
+            <form class="task-form">
+                <label class="recipient-label" for="assignee">
+                    <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="12" cy="9" r="5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2.5 27v-2.5a7.5 7.5 0 0 1 7.5-7.5h4a7.5 7.5 0 0 1 7.5 7.5V27h-19ZM21 4.5a5 5 0 0 1 0 9.8M23 17h1.5a6 6 0 0 1 6 6v4H25" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    <span>Assign To</span>
+                </label>
+
+                <div class="select-wrap">
+                    <select id="assignee" name="assignee" required>
+                        <option value="" selected disabled>Select a team member...</option>
+                        <option>General Manager</option>
+                        <option>Team Leader</option>
+                        <option>Account Executive</option>
+                        <option>Field Engineer</option>
+                        <option>Sales Representative</option>
+                        <option>Legal Counsel</option>
+                        <option>HR Manager</option>
+                    </select>
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+
+                <label class="details-field">
+                    <span class="visually-hidden">Task details</span>
+                    <textarea name="details" maxlength="500" placeholder="Enter task details..." required></textarea>
+                    <span class="character-count"><span id="character-count">0</span> / 500</span>
+                </label>
+
+                <button class="send-button" type="submit">
+                    <svg viewBox="0 0 40 40" aria-hidden="true"><path d="m5 18 29-12-10 30-6-13L5 18Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m18 23 16-17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                    <span>Send Task</span>
+                </button>
+            </form>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item is-current" aria-current="page" href="../../5. Home Page/html & css files/home.html">
+                <img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span>
+            </a>
+            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html">
+                <img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span>
+            </a>
+            <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html">
+                <img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span>
+            </a>
+        </nav>
+    </main>
+
+    <script>
+        const detailsField = document.querySelector(".details-field textarea");
+        const characterCount = document.querySelector("#character-count");
+        detailsField.addEventListener("input", () => {
+            characterCount.textContent = detailsField.value.length;
+        });
+    </script>
+</body>
+</html>

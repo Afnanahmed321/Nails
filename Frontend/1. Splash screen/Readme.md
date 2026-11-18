@@ -1,0 +1,1 @@
+http://127.0.0.1:5500/Frontend/1.%20Splash%20screen/html%20&%20css%20files/index.html

@@ -1,0 +1,71 @@
+.support-detail {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-bottom: 12px;
+    scrollbar-color: #1764bd transparent;
+    scrollbar-width: thin;
+}
+
+.support-detail .page-heading { flex: 0 0 auto; }
+.detail-card {
+    flex: 0 0 auto;
+    margin-top: 16px;
+    padding: 15px;
+    border: 1px solid #203e70;
+    border-radius: 18px;
+    background: linear-gradient(110deg, rgba(9, 20, 37, .97), rgba(6, 18, 36, .96));
+}
+
+.detail-card h2 { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
+.faq-list { display: flex; flex-direction: column; gap: 8px; padding: 10px; }
+.faq-list details { border: 1px solid rgba(42, 71, 111, .8); border-radius: 13px; background: rgba(7, 18, 34, .8); }
+.faq-list summary { position: relative; padding: 12px 36px 12px 12px; color: #f1f5fc; font-size: 13px; font-weight: 500; list-style: none; cursor: pointer; }
+.faq-list summary::-webkit-details-marker { display: none; }
+.faq-list summary::after { position: absolute; top: 50%; right: 13px; color: #65baff; content: "+"; font-size: 20px; line-height: 1; transform: translateY(-50%); }
+.faq-list details[open] summary { color: #80bdff; }
+.faq-list details[open] summary::after { content: "−"; }
+.faq-list details p { margin: 0; padding: 0 12px 13px; color: #b6c0d1; font-size: 12px; line-height: 1.5; }
+.detail-link { display: flex; flex: 0 0 auto; align-items: center; justify-content: space-between; gap: 10px; margin: 14px 2px 0; color: #70bbff; font-size: 13px; text-decoration: none; }
+.detail-link span { font-size: 19px; }
+
+.contact-direct { padding: 15px; }
+.contact-direct h2 { margin-bottom: 8px; }
+.contact-direct a { display: flex; align-items: center; gap: 11px; min-height: 56px; color: #f3f6fb; text-decoration: none; }
+.contact-direct a + a { border-top: 1px solid rgba(56, 81, 117, .48); }
+.contact-symbol { display: grid; flex: 0 0 36px; width: 36px; height: 36px; place-items: center; border: 1px solid #16477e; border-radius: 11px; background: #102849; color: #73caff; font-size: 19px; }
+.contact-symbol img { width: 34px; height: 34px; object-fit: contain; }
+.contact-direct a > span:nth-child(2) { display: flex; flex: 1; flex-direction: column; gap: 2px; }
+.contact-direct strong { font-size: 13px; font-weight: 600; }
+.contact-direct small { color: #aebbd0; font-size: 12px; }
+.support-form { display: flex; flex-direction: column; gap: 11px; }
+.support-form h2 { margin-bottom: 0; }
+.support-form label { display: flex; flex-direction: column; gap: 5px; color: #d8e1ef; font-size: 12px; font-weight: 500; }
+.support-form input,
+.support-form select,
+.support-form textarea { width: 100%; min-height: 42px; padding: 10px 11px; border: 1px solid #324c71; border-radius: 11px; outline: none; background: rgba(2, 9, 21, .78); color: #f5f8ff; font: 400 13px "IBM Plex Sans", sans-serif; }
+.support-form select { appearance: none; }
+.support-form select option { background: #071326; color: #f5f8ff; }
+.support-form textarea { min-height: 98px; resize: vertical; line-height: 1.45; }
+.support-form input::placeholder,
+.support-form textarea::placeholder { color: #8492a9; }
+.support-form input:focus,
+.support-form select:focus,
+.support-form textarea:focus { border-color: #168fff; box-shadow: 0 0 9px rgba(0, 120, 255, .18); }
+.detail-submit { display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 46px; margin-top: 2px; border: 1px solid #1dc8ff; border-radius: 14px; background: linear-gradient(110deg, #0878ff, #075fff 60%, #0878ff); box-shadow: 0 0 12px rgba(0, 150, 255, .2); color: #fff; font: 600 14px "IBM Plex Sans", sans-serif; cursor: pointer; }
+.detail-submit span { font-size: 19px; }
+.detail-status { min-height: 0; margin: 0; color: #76d8ff; font-size: 11px; }
+.report-note { display: flex; align-items: flex-start; gap: 9px; color: #78caff; }
+.report-note > span { flex: 0 0 auto; font-size: 17px; }
+.report-note p { margin: 0; color: #b6c0d1; font-size: 12px; line-height: 1.45; }
+
+@media (max-height: 760px) {
+    .detail-card { margin-top: 11px; padding: 12px; }
+    .faq-list { gap: 6px; padding: 8px; }
+    .faq-list summary { padding-top: 10px; padding-bottom: 10px; }
+    .support-form { gap: 8px; }
+    .support-form textarea { min-height: 78px; }
+}

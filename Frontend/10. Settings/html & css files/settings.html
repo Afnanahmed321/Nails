@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Settings | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="settings.css">
+</head>
+<body>
+    <main class="settings-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+
+        <header class="topbar">
+            <a class="back-button" href="../../5. Home Page/html & css files/home.html" aria-label="Back to Home">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+
+        <section class="settings-content" aria-labelledby="settings-title">
+            <div class="page-heading">
+                <div class="settings-tile" aria-hidden="true">
+                    <svg viewBox="0 0 40 40"><path d="M16 3h8l1.2 4.2a14 14 0 0 1 3.3 1.9l4.1-1 4 6.9-3 3a14 14 0 0 1 0 3.8l3 3-4 6.9-4.1-1a14 14 0 0 1-3.3 1.9L24 37h-8l-1.2-4.2a14 14 0 0 1-3.3-1.9l-4.1 1-4-6.9 3-3a14 14 0 0 1 0-3.8l-3-3 4-6.9 4.1 1a14 14 0 0 1 3.3-1.9L16 3Z" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round"/><circle cx="20" cy="19" r="5.5" fill="none" stroke="currentColor" stroke-width="2.3"/></svg>
+                </div>
+                <div><h1 id="settings-title">Settings</h1><p>Manage your app preferences and tools.</p></div>
+            </div>
+
+            <section class="settings-list" aria-label="Settings options">
+                <a class="settings-item" href="notifications.html">
+                    <span class="item-icon" aria-hidden="true"><img src="../Assets/Notification.png" alt=""></span>
+                    <span class="item-copy"><strong>Notifications</strong><span>Manage alerts and message notifications.</span></span>
+                    <svg class="item-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+
+                <a class="settings-item" href="../../8. Chat Backup Screen/html &amp; css files/chats_backup.html?source=footer">
+                    <span class="item-icon" aria-hidden="true"><img src="../Assets/backup.png" alt=""></span>
+                    <span class="item-copy"><strong>Backup</strong><span>Create a backup of your conversations.</span></span>
+                    <svg class="item-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+
+                <a class="settings-item" href="../../14. Restore Backup/html &amp; css files/restore.html">
+                    <span class="item-icon" aria-hidden="true"><img src="../Assets/restore.png" alt=""></span>
+                    <span class="item-copy"><strong>Restore Backup</strong><span>Restore your chats from a backup file.</span></span>
+                    <svg class="item-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+
+                <a class="settings-item" href="../../11. Help &amp; Support/html &amp; css files/HS.html">
+                    <span class="item-icon" aria-hidden="true"><img src="../Assets/HS.png" alt=""></span>
+                    <span class="item-copy"><strong>Help &amp; Support</strong><span>Get help, view FAQs or report an issue.</span></span>
+                    <svg class="item-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+
+                <a class="settings-item" href="../../16. About App/html &amp; css files/about.html">
+                    <span class="item-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 14v8m0-13h.01" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></span>
+                    <span class="item-copy"><strong>About Application</strong><span>App details, version and legal information.</span></span>
+                    <svg class="item-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+            </section>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item" href="/Frontend/5.%20Home%20Page/html%20%26%20css%20files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item" href="/Frontend/13.%20Invite/html%20%26%20css%20files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item is-current" aria-current="page" href="/Frontend/10.%20Settings/html%20%26%20css%20files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item" href="/Frontend/12.%20Profile/html%20%26%20css%20files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+</body>
+</html>

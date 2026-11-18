@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Invite | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="invite.css">
+</head>
+<body>
+    <main class="invite-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+        <header class="topbar">
+            <a class="back-button" href="../../5. Home Page/html & css files/home.html" aria-label="Back to Home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+
+        <section class="invite-content" aria-label="Invite someone on WhatsApp">
+            <form class="whatsapp-form" id="whatsapp-invite-form">
+                <h2>Invite on WhatsApp</h2>
+                <p>Enter their mobile number and we’ll prepare an invite message.</p>
+                <label class="phone-field">
+                    <span class="visually-hidden">Country code</span>
+                    <select id="country-code" aria-label="Country code">
+                        <option value="+91" selected>+91</option>
+                        <option value="+1">+1</option>
+                        <option value="+44">+44</option>
+                        <option value="+61">+61</option>
+                        <option value="+971">+971</option>
+                    </select>
+                    <span class="phone-divider" aria-hidden="true"></span>
+                    <input id="invite-phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="Enter mobile number" aria-label="Mobile number" required>
+                </label>
+                <label class="task-toggle">
+                    <input id="include-task" type="checkbox">
+                    <span class="toggle-switch" aria-hidden="true"></span>
+                    <span class="task-toggle-copy"><strong>Include a task <span>(optional)</span></strong><small>Send an invite on its own or include a task to get started.</small></span>
+                </label>
+                <div class="task-entry" id="task-entry" hidden>
+                    <label class="visually-hidden" for="invite-task">Optional task details</label>
+                    <textarea id="invite-task" maxlength="500" placeholder="Enter task details..."></textarea>
+                    <span class="task-count" id="task-count">0 / 500</span>
+                </div>
+                <button class="primary-button" id="send-invite" type="submit">
+                    <img src="../../2. Welcome/Assets/whatsapp-icon.png" alt="" aria-hidden="true">
+                    <span id="send-label">Send WhatsApp Invite</span>
+                </button>
+                <p class="form-status" id="phone-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <section class="success-overlay" id="invite-success" role="dialog" aria-modal="true" aria-labelledby="success-title" aria-describedby="success-message" hidden>
+            <div class="success-card">
+                <div class="success-icon" aria-hidden="true">
+                    <img src="../../2. Welcome/Assets/whatsapp-icon.png" alt="">
+                    <span class="success-check">✓</span>
+                </div>
+                <h2 id="success-title">Invite ready</h2>
+                <p id="success-message">WhatsApp opened with your invitation. Review it and tap Send.</p>
+                <button type="button" id="close-success">Back to Invite</button>
+            </div>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item" href="../../5. Home Page/html & css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item is-current" aria-current="page" href="invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+    <script>
+        (() => {
+            const form = document.getElementById('whatsapp-invite-form');
+            const phoneInput = document.getElementById('invite-phone');
+            const taskToggle = document.getElementById('include-task');
+            const taskEntry = document.getElementById('task-entry');
+            const taskInput = document.getElementById('invite-task');
+            const taskCount = document.getElementById('task-count');
+            const button = document.getElementById('send-invite');
+            const status = document.getElementById('phone-status');
+            const success = document.getElementById('invite-success');
+            const inviteCode = 'NAILS-2026';
+            const inviteUrl = new URL('../../2. Welcome/html & css files/welcome.html?invite=' + encodeURIComponent(inviteCode), window.location.href).href;
+
+            taskToggle.addEventListener('change', () => {
+                taskEntry.hidden = !taskToggle.checked;
+                document.getElementById('send-label').textContent = taskToggle.checked ? 'Send Invite with Task' : 'Send WhatsApp Invite';
+                if (taskToggle.checked) taskInput.focus();
+            });
+
+            taskInput.addEventListener('input', () => {
+                taskCount.textContent = `${taskInput.value.length} / 500`;
+            });
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                status.textContent = '';
+                const localNumber = phoneInput.value.replace(/\D/g, '').replace(/^0+/, '');
+                const internationalNumber = (document.getElementById('country-code').value + localNumber).replace(/\D/g, '');
+                const task = taskToggle.checked ? taskInput.value.trim() : '';
+
+                if (internationalNumber.length < 7 || internationalNumber.length > 15) {
+                    status.textContent = 'Enter a valid phone number, including its country code.';
+                    phoneInput.focus();
+                    return;
+                }
+                if (taskToggle.checked && !task) {
+                    status.textContent = 'Add task details, or turn off Include a task.';
+                    taskInput.focus();
+                    return;
+                }
+
+                const message = [
+                    `Join me on Nails with invite code ${inviteCode}.`,
+                    inviteUrl,
+                    task ? `Task to get started:\n${task}` : ''
+                ].filter(Boolean).join('\n\n');
+                const whatsappWindow = window.open(`https://wa.me/${internationalNumber}?text=${encodeURIComponent(message)}`, '_blank');
+                if (whatsappWindow) whatsappWindow.opener = null;
+
+                button.disabled = true;
+                button.classList.add('is-launching');
+                window.setTimeout(() => {
+                    document.getElementById('success-title').textContent = task ? 'Invite with task is ready' : 'Invite is ready';
+                    document.getElementById('success-message').textContent = task
+                        ? 'WhatsApp opened with your invite and task. Review the message and tap Send.'
+                        : 'WhatsApp opened with your invite. Review the message and tap Send.';
+                    success.hidden = false;
+                    document.getElementById('close-success').focus();
+                }, 650);
+            });
+
+            document.getElementById('close-success').addEventListener('click', () => {
+                success.hidden = true;
+                button.disabled = false;
+                button.classList.remove('is-launching');
+            });
+        })();
+    </script>
+</body>
+</html>

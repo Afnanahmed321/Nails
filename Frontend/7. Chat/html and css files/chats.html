@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#020611">
+    <title>General Manager | Nails Chat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="chats.css">
+</head>
+<body>
+    <main class="chat-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+
+        <header class="chat-header">
+            <a class="back-button" id="chat-back" href="../../5. Home Page/html & css files/home.html" aria-label="Back to Home">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <h1>General Manager</h1>
+        </header>
+
+        <section class="pinned-task" aria-label="Pinned task">
+            <span class="pin-icon" aria-hidden="true"><img src="../Assets/pin.png" alt=""></span>
+            <span class="pinned-divider" aria-hidden="true"></span>
+            <span class="pinned-copy"><strong>Pinned Task</strong><span id="pinned-task-copy">Prepare Q4 campaign summary by Friday.</span></span>
+            <button class="pinned-edit" id="edit-pinned-task" type="button" aria-label="Edit pinned task" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5M4 20l4.2-.9L20 7.3 16.7 4 4.9 15.8 4 20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Edit</span></button>
+        </section>
+
+        <div class="expiry-notice" role="note">
+            <span class="notice-line" aria-hidden="true"></span>
+            <svg viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="10" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M14 8v6l4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <p>This chat will be deleted in <strong>24 hours.</strong></p>
+            <span class="notice-line" aria-hidden="true"></span>
+        </div>
+
+        <section class="conversation" aria-label="Conversation with General Manager">
+            <div class="message-group incoming">
+                <p class="message-meta">General Manager <span>•</span> 11:12</p>
+                <div class="message-bubble" id="pinned-task-message" tabindex="-1">Prepare Q4 campaign summary by Friday.</div>
+            </div>
+
+            <div class="message-group outgoing">
+                <p class="message-meta">You <span>•</span> 11:13</p>
+                <div class="message-bubble">Noted sir, and do you need it in Q3 format?<div class="message-receipt is-delivered" aria-label="Delivered"><span class="receipt-ticks" aria-hidden="true">✓✓</span><span class="receipt-label">Delivered</span></div></div>
+            </div>
+
+            <div class="message-group incoming">
+                <p class="message-meta">General Manager <span>•</span> 11:13</p>
+                <div class="message-bubble">Yes, you can follow Q3 but change the values by reducing 20% quantity.</div>
+            </div>
+
+            <div class="message-group outgoing">
+                <p class="message-meta">You <span>•</span> 11:14</p>
+                <div class="message-bubble">Understood. I will adjust the Q3 template and apply the 20% reduction across all categories, then share the draft by Thursday EOD for your review.<div class="message-receipt is-read" aria-label="Read"><span class="receipt-ticks" aria-hidden="true">✓✓</span><span class="receipt-label">Read</span></div></div>
+            </div>
+
+            <div class="message-group incoming">
+                <p class="message-meta">General Manager <span>•</span> 11:15</p>
+                <div class="message-bubble">Perfect. Also include the budget comparison and highlight regions with highest performance. Thanks.</div>
+            </div>
+
+            <div class="message-group outgoing">
+                <p class="message-meta">You <span>•</span> 11:16</p>
+                <div class="message-bubble">I’ll share the revised summary shortly.<div class="message-receipt is-failed" aria-label="Not delivered"><span class="receipt-ticks" aria-hidden="true">!</span><span class="receipt-label">Not delivered</span></div></div>
+            </div>
+        </section>
+
+        <form class="message-composer" id="message-composer">
+            <button class="composer-add" type="button" aria-label="Add attachment"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+            <span class="composer-divider" aria-hidden="true"></span>
+            <input id="chat-message-input" type="text" aria-label="Message" placeholder="Message General Manager..." autocomplete="off">
+            <button class="microphone-button" type="button" aria-label="Record voice message"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="10" y="3" width="8" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 13a8 8 0 0 0 16 0M14 21v4m-4 0h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+            <button class="send-message" type="submit" aria-label="Send message"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m4 5 25 11L4 27l4-10-4-12Z" fill="currentColor"/><path d="M8 17h15" stroke="#0878f9" stroke-width="1.7"/></svg></button>
+        </form>
+
+        <section class="task-edit-overlay" id="task-edit-overlay" role="dialog" aria-modal="true" aria-labelledby="task-edit-title" hidden>
+            <form class="task-edit-card" id="task-edit-form">
+                <h2 id="task-edit-title">Edit pinned task</h2>
+                <label class="visually-hidden" for="task-edit-input">Task details</label>
+                <textarea id="task-edit-input" maxlength="500" required></textarea>
+                <p class="task-edit-status" id="task-edit-status" role="status" aria-live="polite"></p>
+                <div class="task-edit-actions"><button class="task-edit-cancel" id="cancel-task-edit" type="button">Cancel</button><button class="task-edit-save" type="submit">Save changes</button></div>
+            </form>
+        </section>
+
+    </main>
+    <script>
+        const threadParams = new URLSearchParams(window.location.search);
+        const threadType = threadParams.get('type') === 'received' ? 'received' : 'assigned';
+        const canEditTask = threadType === 'assigned';
+        const editTaskButton = document.getElementById('edit-pinned-task');
+        const editOverlay = document.getElementById('task-edit-overlay');
+        const editInput = document.getElementById('task-edit-input');
+        const pinnedTaskCopy = document.getElementById('pinned-task-copy');
+        const pinnedTaskMessage = document.getElementById('pinned-task-message');
+        const taskStatus = document.getElementById('task-edit-status');
+        document.getElementById('chat-back').href = `../../5. Home Page/html & css files/home.html?inbox=${threadType}`;
+        editTaskButton.hidden = !canEditTask;
+        const savedPinnedTask = localStorage.getItem('nails-pinned-task');
+        if (savedPinnedTask) {
+            pinnedTaskCopy.textContent = savedPinnedTask;
+            pinnedTaskMessage.textContent = savedPinnedTask;
+        }
+
+        if (canEditTask) {
+            editTaskButton.addEventListener('click', () => {
+                editInput.value = pinnedTaskCopy.textContent.trim();
+                taskStatus.textContent = '';
+                editOverlay.hidden = false;
+                editInput.focus();
+            });
+            document.getElementById('cancel-task-edit').addEventListener('click', () => { editOverlay.hidden = true; });
+            document.getElementById('task-edit-form').addEventListener('submit', (event) => {
+                event.preventDefault();
+                const updatedTask = editInput.value.trim();
+                if (!updatedTask) {
+                    taskStatus.textContent = 'Enter task details before saving.';
+                    editInput.focus();
+                    return;
+                }
+                pinnedTaskCopy.textContent = updatedTask;
+                pinnedTaskMessage.textContent = updatedTask;
+                localStorage.setItem('nails-pinned-task', updatedTask);
+                editOverlay.hidden = true;
+            });
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !editOverlay.hidden) editOverlay.hidden = true;
+        });
+
+        const composer = document.getElementById('message-composer');
+        const messageInput = document.getElementById('chat-message-input');
+        const conversation = document.querySelector('.conversation');
+
+        function setReceiptState(receipt, state) {
+            receipt.classList.remove('is-sent', 'is-delivered', 'is-read');
+            receipt.classList.add(`is-${state}`);
+            receipt.setAttribute('aria-label', state[0].toUpperCase() + state.slice(1));
+            receipt.querySelector('.receipt-ticks').textContent = state === 'sent' ? '✓' : '✓✓';
+            receipt.querySelector('.receipt-label').textContent = state[0].toUpperCase() + state.slice(1);
+        }
+
+        composer.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const text = messageInput.value.trim();
+            if (!text) {
+                messageInput.focus();
+                return;
+            }
+
+            const now = new Date();
+            const time = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+            const group = document.createElement('div');
+            group.className = 'message-group outgoing';
+            const meta = document.createElement('p');
+            meta.className = 'message-meta';
+            meta.append(document.createTextNode('You '));
+            const separator = document.createElement('span');
+            separator.textContent = '•';
+            meta.append(separator, document.createTextNode(` ${time}`));
+            const bubble = document.createElement('div');
+            bubble.className = 'message-bubble';
+            bubble.append(document.createTextNode(text));
+            const receipt = document.createElement('div');
+            receipt.className = 'message-receipt is-sent';
+            receipt.setAttribute('aria-label', 'Sent');
+            const ticks = document.createElement('span');
+            ticks.className = 'receipt-ticks';
+            ticks.setAttribute('aria-hidden', 'true');
+            ticks.textContent = '✓';
+            const label = document.createElement('span');
+            label.className = 'receipt-label';
+            label.textContent = 'Sent';
+            receipt.append(ticks, label);
+            bubble.append(receipt);
+            group.append(meta, bubble);
+            conversation.append(group);
+            messageInput.value = '';
+            conversation.scrollTop = conversation.scrollHeight;
+            window.setTimeout(() => setReceiptState(receipt, 'delivered'), 850);
+            window.setTimeout(() => setReceiptState(receipt, 'read'), 2500);
+        });
+    </script>
+</body>
+</html>

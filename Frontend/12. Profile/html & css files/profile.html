@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Profile | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+    <main class="profile-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+
+        <header class="topbar">
+            <a class="back-button" href="../../10. Settings/html &amp; css files/settings.html" aria-label="Back to Settings"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+
+        <section class="profile-content" aria-labelledby="profile-title">
+            <div class="page-heading">
+                <div class="profile-tile" aria-hidden="true"><svg viewBox="0 0 40 40"><circle cx="20" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M6 34v-4a9 9 0 0 1 9-9h10a9 9 0 0 1 9 9v4H6Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg></div>
+                <div><h1 id="profile-title">Profile</h1><p>Manage your account and preferences.</p></div>
+            </div>
+
+            <form class="profile-form" id="profile-form" aria-label="Profile details">
+                <div class="profile-form-heading"><div><h2>Personal details</h2><p>Keep your account information up to date.</p></div><button class="edit-button" id="edit-profile" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5M4 20l4.2-.9L20 7.3 16.7 4 4.9 15.8 4 20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Edit</button></div>
+                <label class="profile-field"><span>Full name</span><input id="profile-name" type="text" value="Yaseen" readonly required></label>
+                <label class="profile-field"><span>Designation</span><input id="profile-designation" type="text" value="General Manager" readonly required></label>
+                <label class="profile-field"><span>Email address</span><input id="profile-email" type="email" value="yaseen@nails.app" readonly required></label>
+                <label class="profile-field"><span>Mobile number</span><input id="profile-phone" type="tel" value="+91 98765 43210" readonly required></label>
+                <div class="profile-actions" id="profile-actions" hidden><button class="profile-cancel" id="cancel-profile-edit" type="button">Cancel</button><button class="profile-save" type="submit">Save changes</button></div>
+                <p class="profile-status" id="profile-status" role="status" aria-live="polite"></p>
+            </form>
+
+            <button class="logout-button" type="button"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M12 4H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6m4-5 5-5-5-5m5 5H10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Logout</button>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item" href="../../5. Home Page/html & css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item is-current" aria-current="page" href="profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+    <script>
+        (() => {
+            const form = document.getElementById('profile-form');
+            const fields = [...form.querySelectorAll('input')];
+            const editButton = document.getElementById('edit-profile');
+            const actions = document.getElementById('profile-actions');
+            const status = document.getElementById('profile-status');
+            const storageKey = 'nails-profile-details';
+            const defaults = ['Yaseen', 'General Manager', 'yaseen@nails.app', '+91 98765 43210'];
+
+            try {
+                const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+                if (Array.isArray(saved) && saved.length === fields.length) fields.forEach((field, index) => { field.value = saved[index]; });
+            } catch (_) {}
+
+            function setEditing(editing) {
+                fields.forEach((field) => { field.readOnly = !editing; });
+                editButton.hidden = editing;
+                actions.hidden = !editing;
+                status.textContent = '';
+                if (editing) fields[0].focus();
+            }
+
+            editButton.addEventListener('click', () => setEditing(true));
+            document.getElementById('cancel-profile-edit').addEventListener('click', () => {
+                try {
+                    const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+                    fields.forEach((field, index) => { field.value = Array.isArray(saved) ? saved[index] : defaults[index]; });
+                } catch (_) {
+                    fields.forEach((field, index) => { field.value = defaults[index]; });
+                }
+                setEditing(false);
+            });
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                if (!form.reportValidity()) return;
+                localStorage.setItem(storageKey, JSON.stringify(fields.map((field) => field.value.trim())));
+                setEditing(false);
+                status.textContent = 'Profile details saved on this device.';
+            });
+        })();
+    </script>
+</body>
+</html>

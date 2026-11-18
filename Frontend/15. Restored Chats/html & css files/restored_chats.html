@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Restored Chats | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="restored_chats.css">
+</head>
+<body>
+    <main class="restored-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+        <header class="topbar">
+            <a class="back-button" id="back-link" href="../../5. Home Page/html & css files/home.html" aria-label="Back to Home"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+
+        <section class="restored-content" id="chat-list-view" aria-labelledby="page-title">
+            <div class="page-heading"><div class="restore-tile" aria-hidden="true"><img src="../../10. Settings/Assets/restore.png" alt=""></div><div><h1 id="page-title">Restored Chats</h1><p id="backup-info">Your recovered conversations.</p></div></div>
+            <div class="read-only-note"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>Restored conversations are read-only.</span></div>
+            <section class="task-list" id="restored-list" aria-label="Restored conversations"></section>
+            <p class="empty-state" id="empty-state" hidden>No restored conversations are available. Restore a backup file to see its chats here.</p>
+        </section>
+
+        <section class="thread-view" id="thread-view" hidden aria-label="Restored conversation">
+            <div class="thread-heading"><span class="thread-avatar" id="thread-avatar">—</span><div><h1 id="thread-title">Conversation</h1><p>Restored conversation · Read-only</p></div><span class="read-only-badge">READ ONLY</span></div>
+            <div class="retention-notice" role="note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 7v5l3 2m-9 6 2-2m11 2-2-2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><p>This restored chat may be removed from the app, but it stays in your local storage so you can restore it any time.</p></div>
+            <div class="thread-messages" id="thread-messages"></div>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item is-current" href="../../5. Home Page/html & css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+    <script>
+        (() => {
+            const backLink = document.getElementById('back-link');
+            const listView = document.getElementById('chat-list-view');
+            const threadView = document.getElementById('thread-view');
+            const list = document.getElementById('restored-list');
+            const empty = document.getElementById('empty-state');
+            const sampleRestoredBackup = {
+                fileName: 'sample-restored-backup.json',
+                restoredAt: new Date().toISOString(),
+                isDemo: true,
+                conversations: [
+                    { id: 'sample-1', name: 'Operations Head', messages: [{ sender: 'other', text: 'Please review the updated operations schedule.', time: '9:14 AM' }, { sender: 'you', text: 'Reviewed. The new schedule looks good.', time: '9:22 AM' }] },
+                    { id: 'sample-2', name: 'Project Team', messages: [{ sender: 'other', text: 'The project files are ready for review.', time: 'Yesterday' }, { sender: 'you', text: 'Thanks, I will review them this afternoon.', time: 'Yesterday' }] },
+                    { id: 'sample-3', name: 'HR Manager', messages: [{ sender: 'other', text: 'The updated team leave calendar is available.', time: 'Mon' }, { sender: 'you', text: 'Received. I have saved the updated calendar.', time: 'Mon' }] },
+                    { id: 'sample-4', name: 'Design Team', messages: [{ sender: 'other', text: 'Sharing the final campaign mockups.', time: 'Sun' }, { sender: 'you', text: 'Got them. The latest version is ready to use.', time: 'Sun' }] }
+                ]
+            };
+            let restored;
+            try {
+                restored = JSON.parse(localStorage.getItem('nails-restored-chats') || 'null');
+                if (!Array.isArray(restored?.conversations) || restored.conversations.length === 0) {
+                    restored = sampleRestoredBackup;
+                    localStorage.setItem('nails-restored-chats', JSON.stringify(restored));
+                }
+            } catch {
+                restored = sampleRestoredBackup;
+                localStorage.setItem('nails-restored-chats', JSON.stringify(restored));
+            }
+
+            const conversations = Array.isArray(restored?.conversations) ? restored.conversations : [];
+            const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join('').toUpperCase() || 'RC';
+            const openThread = (conversation) => {
+                listView.hidden = true;
+                threadView.hidden = false;
+                backLink.href = '#restored-list';
+                backLink.setAttribute('aria-label', 'Back to restored chats');
+                document.getElementById('thread-title').textContent = conversation.name;
+                document.getElementById('thread-avatar').textContent = initials(conversation.name);
+                const messages = document.getElementById('thread-messages');
+                messages.replaceChildren();
+                (conversation.messages || []).forEach((message) => {
+                    const group = document.createElement('article');
+                    group.className = `message-group ${message.sender === 'you' ? 'outgoing' : 'incoming'}`;
+                    const meta = document.createElement('p');
+                    meta.className = 'message-meta';
+                    meta.textContent = `${message.sender === 'you' ? 'You' : conversation.name}${message.time ? ` · ${message.time}` : ''}`;
+                    const bubble = document.createElement('div');
+                    bubble.className = 'message-bubble';
+                    bubble.textContent = message.text;
+                    group.append(meta, bubble);
+                    messages.append(group);
+                });
+                if (!conversation.messages?.length) {
+                    const emptyMessage = document.createElement('p');
+                    emptyMessage.className = 'empty-thread';
+                    emptyMessage.textContent = 'This restored chat has no messages.';
+                    messages.append(emptyMessage);
+                }
+            };
+
+            conversations.forEach((conversation, index) => {
+                const card = document.createElement('a');
+                card.className = 'task-card';
+                card.href = `?chat=${encodeURIComponent(index)}`;
+                const avatar = document.createElement('span');
+                avatar.className = 'avatar';
+                avatar.textContent = initials(conversation.name);
+                const copy = document.createElement('span');
+                copy.className = 'task-copy';
+                const name = document.createElement('strong');
+                name.textContent = conversation.name;
+                const preview = document.createElement('span');
+                preview.textContent = conversation.messages?.at(-1)?.text || 'No messages in this conversation';
+                copy.append(name, preview);
+                const count = document.createElement('span');
+                count.className = 'task-meta';
+                count.textContent = `${conversation.messages?.length || 0} messages`;
+                card.append(avatar, copy, count);
+                card.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    openThread(conversation);
+                    history.replaceState(null, '', `?chat=${encodeURIComponent(index)}`);
+                });
+                list.append(card);
+            });
+            document.getElementById('backup-info').textContent = restored?.isDemo ? 'Sample restored conversations' : (restored?.fileName ? `Restored from ${restored.fileName}` : 'Your recovered conversations.');
+            empty.hidden = conversations.length > 0;
+            backLink.addEventListener('click', (event) => {
+                if (threadView.hidden) return;
+                event.preventDefault();
+                threadView.hidden = true;
+                listView.hidden = false;
+                backLink.href = '../../5. Home Page/html & css files/home.html';
+                backLink.setAttribute('aria-label', 'Back to Home');
+                history.replaceState(null, '', window.location.pathname);
+            });
+            const requestedChatParam = new URLSearchParams(window.location.search).get('chat');
+            if (requestedChatParam !== null && requestedChatParam.trim() !== '') {
+                const requestedChat = Number(requestedChatParam);
+                if (Number.isInteger(requestedChat) && conversations[requestedChat]) openThread(conversations[requestedChat]);
+            }
+        })();
+    </script>
+</body>
+</html>

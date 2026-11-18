@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Notifications | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="notifications.css">
+</head>
+<body>
+    <main class="settings-page notifications-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+
+        <header class="topbar">
+            <a class="back-button" href="settings.html" aria-label="Back to Settings">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+
+        <section class="settings-content" aria-labelledby="notifications-title">
+            <div class="page-heading">
+                <div class="settings-tile notification-tile" aria-hidden="true"><img src="../Assets/Notification.png" alt=""></div>
+                <div><h1 id="notifications-title">Notifications</h1><p>Choose how Nails keeps you updated.</p></div>
+            </div>
+
+            <section class="notification-list" aria-label="Notification preferences">
+                <article class="notification-option">
+                    <span class="notification-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M4 13v6a2 2 0 0 0 2 2h4l10 6V5L10 11H6a2 2 0 0 0-2 2Zm16-3a8 8 0 0 1 0 12m3-16a13 13 0 0 1 0 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span class="notification-copy"><strong>Conversation Tones</strong><span>Play sounds for incoming and outgoing messages.</span></span>
+                    <button class="preference-toggle" type="button" role="switch" aria-checked="true" aria-label="Conversation Tones" data-preference="tones"><span></span></button>
+                </article>
+                <article class="notification-option">
+                    <span class="notification-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><circle cx="16" cy="17" r="11" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 10v7l5 3M11 3h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span class="notification-copy"><strong>Reminders</strong><span>Get occasional reminders about messages.</span></span>
+                    <button class="preference-toggle" type="button" role="switch" aria-checked="false" aria-label="Reminders" data-preference="reminders"><span></span></button>
+                </article>
+                <article class="notification-option">
+                    <span class="notification-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M12 4v24m8-24v24M7 8l5 4-5 4m18-8-5 4 5 4M7 16l5 4-5 4m18-8-5 4 5 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <span class="notification-copy"><strong>Vibration</strong><span>Vibrate your device for message alerts.</span></span>
+                    <button class="preference-toggle" type="button" role="switch" aria-checked="true" aria-label="Vibration" data-preference="vibration"><span></span></button>
+                </article>
+            </section>
+
+            <p class="preferences-note" id="preferences-note" role="status" aria-live="polite">Your preferences are saved on this device.</p>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item" href="/Frontend/5.%20Home%20Page/html%20%26%20css%20files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item" href="/Frontend/13.%20Invite/html%20%26%20css%20files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item is-current" aria-current="page" href="/Frontend/10.%20Settings/html%20%26%20css%20files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item" href="/Frontend/12.%20Profile/html%20%26%20css%20files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+    <script>
+        (() => {
+            const storageKey = 'nails-notification-preferences';
+            const defaults = { tones: true, reminders: false, vibration: true };
+            let preferences = defaults;
+            try {
+                const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+                if (saved && typeof saved === 'object') preferences = { ...defaults, ...saved };
+            } catch (_) {
+                preferences = defaults;
+            }
+
+            document.querySelectorAll('.preference-toggle').forEach((toggle) => {
+                const key = toggle.dataset.preference;
+                const sync = () => {
+                    const enabled = Boolean(preferences[key]);
+                    toggle.setAttribute('aria-checked', String(enabled));
+                    toggle.classList.toggle('is-on', enabled);
+                };
+                sync();
+                toggle.addEventListener('click', () => {
+                    preferences[key] = !preferences[key];
+                    localStorage.setItem(storageKey, JSON.stringify(preferences));
+                    sync();
+                    const note = document.getElementById('preferences-note');
+                    note.textContent = `${toggle.getAttribute('aria-label')} ${preferences[key] ? 'enabled' : 'disabled'}. Preferences saved.`;
+                });
+            });
+        })();
+    </script>
+</body>
+</html>

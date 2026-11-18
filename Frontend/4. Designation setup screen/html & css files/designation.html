@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Set your designation | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="designation.css">
+</head>
+<body>
+    <main class="designation-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+
+        <header class="brand" aria-label="Nails">
+            <img class="brand-logo" src="../../2. Welcome/Assets/logo.png" alt="">
+            <div class="brand-name">nails</div>
+            <p class="brand-tagline">next action inputs linedup system</p>
+        </header>
+
+        <section class="designation-content" aria-labelledby="designation-title">
+            <div class="intro">
+                <h1 id="designation-title">Set your designation</h1>
+                <p>Tell us your role in the organization so we can personalize your experience.</p>
+            </div>
+
+            <label class="designation-field">
+                <span class="visually-hidden">Your designation</span>
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                    <rect x="4" y="9" width="24" height="19" rx="2.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="M11 9V6.5A2.5 2.5 0 0 1 13.5 4h5A2.5 2.5 0 0 1 21 6.5V9M4 16h24M13 16v2h6v-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span class="field-divider" aria-hidden="true"></span>
+                <input id="designation-input" type="text" placeholder="Enter your designation" autocomplete="organization-title" aria-autocomplete="list" aria-controls="designation-suggestions">
+            </label>
+            <div class="designation-suggestions" id="designation-suggestions" role="group" aria-label="Matching designations" hidden></div>
+
+        </section>
+
+        <button class="continue-button" type="button">
+            <span>Continue</span>
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+                <path d="M5 16h21M17 6l10 10-10 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </main>
+
+    <script>
+        const designationInput = document.querySelector("#designation-input");
+        const suggestionList = document.querySelector("#designation-suggestions");
+        const knownDesignations = [
+            "General Manager",
+            "Team Leader",
+            "Account Executive",
+            "Field Engineer",
+            "Sales Representative",
+            "HR Manager"
+        ];
+
+        designationInput.addEventListener("input", () => {
+            const query = designationInput.value.trim().toLowerCase();
+            suggestionList.replaceChildren();
+
+            if (!query) {
+                suggestionList.hidden = true;
+                return;
+            }
+
+            const matches = knownDesignations.filter((name) =>
+                name.toLowerCase().startsWith(query) && name.toLowerCase() !== query
+            );
+
+            matches.forEach((name) => {
+                const suggestion = document.createElement("button");
+                suggestion.className = "designation-suggestion";
+                suggestion.type = "button";
+                suggestion.textContent = name;
+                suggestion.addEventListener("click", () => {
+                    designationInput.value = name;
+                    suggestionList.hidden = true;
+                    designationInput.focus();
+                });
+                suggestionList.append(suggestion);
+            });
+
+            suggestionList.hidden = matches.length === 0;
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    color-scheme: dark;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    color: #f8f9fc;
+}
+
+.designation-page {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 412px;
+    height: 100vh;
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+    padding: clamp(54px, 9.5svh, 85px) 22px clamp(32px, 7svh, 70px);
+    background:
+        radial-gradient(ellipse at 50% 28%, rgba(9, 30, 77, 0.38), transparent 54%),
+        linear-gradient(160deg, #030817 0%, #020612 52%, #01040c 100%);
+}
+
+.ambient-glow {
+    position: absolute;
+    z-index: -1;
+    top: 70px;
+    left: 50%;
+    width: 320px;
+    aspect-ratio: 1;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 77, 255, 0.16), rgba(0, 53, 160, 0.08) 42%, transparent 72%);
+    filter: blur(34px);
+    pointer-events: none;
+}
+
+.brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+.brand-logo {
+    display: block;
+    width: clamp(92px, 24vw, 110px);
+    aspect-ratio: 1;
+    object-fit: contain;
+}
+
+.brand-name {
+    margin-top: 3px;
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: 1.5px;
+}
+
+.brand-tagline {
+    margin: 3px 0 0;
+    color: #a7adbc;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.45;
+    letter-spacing: 0.1px;
+}
+
+.designation-content {
+    width: 100%;
+    margin-top: clamp(34px, 5svh, 46px);
+}
+
+.intro h1 {
+    margin: 0;
+    color: #f8f9fc;
+    font-size: clamp(29px, 8vw, 34px);
+    font-weight: 700;
+    letter-spacing: -0.7px;
+    line-height: 1.16;
+    white-space: nowrap;
+}
+
+.intro p {
+    margin: 11px 0 0;
+    color: #a0a8b8;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.48;
+}
+
+.designation-field {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 56px;
+    margin-top: 29px;
+    padding: 0 18px;
+    border: 1.5px solid #2998ff;
+    border-radius: 19px;
+    background: linear-gradient(110deg, rgba(16, 24, 39, 0.94), rgba(15, 20, 32, 0.9));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 0 12px rgba(0, 112, 255, 0.08);
+}
+
+.designation-field:focus-within {
+    box-shadow: 0 0 0 2px rgba(41, 152, 255, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.designation-field > svg {
+    flex: 0 0 auto;
+    width: 27px;
+    height: 27px;
+    color: #f7f9fd;
+}
+
+.field-divider {
+    flex: 0 0 1px;
+    height: 28px;
+    margin: 0 14px;
+    background: rgba(40, 137, 255, 0.32);
+}
+
+.designation-field input {
+    min-width: 0;
+    width: 100%;
+    padding: 8px 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #f8f9fc;
+    font: 400 16px "IBM Plex Sans", sans-serif;
+}
+
+.designation-field input::placeholder {
+    color: #a0a8b8;
+    opacity: 1;
+}
+
+.designation-suggestions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.designation-suggestions[hidden] {
+    display: none;
+}
+
+.designation-suggestion {
+    min-height: 36px;
+    padding: 0 14px;
+    border: 1px solid rgba(41, 152, 255, 0.55);
+    border-radius: 999px;
+    background: rgba(13, 35, 68, 0.9);
+    color: #dcecff;
+    font: 500 14px "IBM Plex Sans", sans-serif;
+    cursor: pointer;
+}
+
+.designation-suggestion:hover,
+.designation-suggestion:focus-visible {
+    border-color: #2998ff;
+    background: #0872f5;
+    outline: none;
+}
+
+.continue-button {
+    position: relative;
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 56px;
+    margin-top: auto;
+    border: 1px solid rgba(82, 170, 255, 0.65);
+    border-radius: 20px;
+    background: linear-gradient(110deg, #0878f9 0%, #0865f4 60%, #0878fb 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 8px 25px rgba(0, 82, 255, 0.12);
+    color: #fff;
+    font: 600 19px "IBM Plex Sans", sans-serif;
+    cursor: pointer;
+    transition: filter 160ms ease, transform 160ms ease;
+}
+
+.continue-button span {
+    text-align: center;
+}
+
+.continue-button svg {
+    position: absolute;
+    right: 18px;
+    width: 27px;
+    height: 27px;
+}
+
+.continue-button:hover {
+    filter: brightness(1.1);
+}
+
+.continue-button:active {
+    transform: scale(0.99);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 360px) {
+    .designation-page {
+        padding-right: 18px;
+        padding-left: 18px;
+    }
+
+    .intro h1 {
+        font-size: 27px;
+    }
+
+    .intro p {
+        font-size: 15px;
+    }
+
+}
+
+@media (max-height: 750px) {
+    .designation-page {
+        padding-top: 35px;
+        padding-bottom: 42px;
+    }
+
+    .brand-logo {
+        width: 88px;
+    }
+
+    .brand-name {
+        font-size: 32px;
+    }
+
+    .designation-content {
+        margin-top: 28px;
+    }
+
+    .designation-field {
+        height: 50px;
+        margin-top: 20px;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+    }
+}

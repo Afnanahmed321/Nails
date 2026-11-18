@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Home | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+    <main class="home-page">
+        <header class="topbar">
+            <img class="brand-icon" src="../../2. Welcome/Assets/logo.png" alt="Nails logo">
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy">
+                <strong>nails</strong>
+                <span>next action inputs linedup system</span>
+            </div>
+            <button class="search-button" id="search-toggle" type="button" aria-label="Search tasks" aria-expanded="false" aria-controls="task-search-panel">
+                <svg viewBox="0 0 32 32" aria-hidden="true">
+                    <circle cx="13.5" cy="13.5" r="9.5" fill="none" stroke="currentColor" stroke-width="2"/>
+                    <path d="m21 21 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="search-panel" id="task-search-panel" hidden>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                <input class="search-input" id="task-search" type="search" placeholder="Search tasks or people..." autocomplete="off" aria-label="Search tasks or people">
+                <button class="search-close" id="search-close" type="button" aria-label="Close search"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+            </div>
+        </header>
+
+        <div class="task-tabs" role="tablist" aria-label="Task inbox">
+            <button class="task-tab is-active" id="assigned-tab" type="button" role="tab" aria-selected="true" aria-controls="task-list">Assigned (12)</button>
+            <button class="task-tab" id="received-tab" type="button" role="tab" aria-selected="false" aria-controls="task-list">Received (7)</button>
+        </div>
+
+        <div class="task-toolbar">
+            <div class="toolbar-control filter-control">
+                <button class="filter-button" id="filter-toggle" type="button" aria-expanded="false" aria-controls="filter-menu">All Tasks
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m3 7 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="toolbar-menu" id="filter-menu" role="menu" aria-label="Filter tasks" hidden>
+                    <button class="menu-option is-selected" type="button" role="menuitemradio" aria-checked="true" data-filter="all">All Tasks</button>
+                    <button class="menu-option" type="button" role="menuitemradio" aria-checked="false" data-filter="unread">Unread</button>
+                    <button class="menu-option" type="button" role="menuitemradio" aria-checked="false" data-filter="read">Read</button>
+                    <button class="menu-option restored-menu-option" id="open-restored-chats" type="button" role="menuitem" hidden>Restored Chats</button>
+                </div>
+            </div>
+            <div class="toolbar-control sort-control">
+                <button class="sort-button" id="sort-toggle" type="button" aria-expanded="false" aria-controls="sort-menu"><span>Sort: <strong>Latest</strong></span>
+                    <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m3 7 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </button>
+                <div class="toolbar-menu" id="sort-menu" role="menu" aria-label="Sort tasks" hidden>
+                    <button class="menu-option is-selected" type="button" role="menuitemradio" aria-checked="true" data-sort="latest">Latest</button>
+                    <button class="menu-option" type="button" role="menuitemradio" aria-checked="false" data-sort="oldest">Oldest</button>
+                    <button class="menu-option" type="button" role="menuitemradio" aria-checked="false" data-sort="az">Name A–Z</button>
+                </div>
+            </div>
+        </div>
+
+        <section class="task-list" id="task-list" aria-label="Assigned tasks">
+            <a class="task-card" href="../../7. Chat/html and css files/chats.html" aria-label="Open General Manager chat">
+                <div class="avatar">GM</div>
+                <div class="task-copy">
+                    <h2>General Manager</h2>
+                    <p>Prepare Q4 campaign summary.</p>
+                    <p>Due Friday — confirm review.</p>
+                </div>
+                <div class="task-meta"><time>9:42 AM</time><span class="unread-dot" aria-label="Unread"></span></div>
+                <svg class="task-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+
+            <a class="task-card" href="../../7. Chat/html and css files/chats.html" aria-label="Open Team leader chat">
+                <div class="avatar">TL</div>
+                <div class="task-copy">
+                    <h2>Team leader</h2>
+                    <p>Draft client onboarding deck.</p>
+                    <p>Key milestones &amp; budget — share by Thu.</p>
+                </div>
+                <div class="task-meta"><time>8:36 AM</time><span class="unread-dot" aria-label="Unread"></span></div>
+                <svg class="task-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+
+            <a class="task-card" href="../../7. Chat/html and css files/chats.html" aria-label="Open Account executive chat">
+                <div class="avatar">AE</div>
+                <div class="task-copy">
+                    <h2>Account executive</h2>
+                    <p>Review vendor analysis document.</p>
+                    <p>Identify savings — report by tomorrow COB.</p>
+                </div>
+                <div class="task-meta"><time>9:12 AM</time></div>
+                <svg class="task-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+
+            <a class="task-card" href="../../7. Chat/html and css files/chats.html" aria-label="Open Field engineer chat">
+                <div class="avatar">FE</div>
+                <div class="task-copy">
+                    <h2>Field engineer</h2>
+                    <p>Run gap analysis on pipeline.</p>
+                    <p>Note risks — escalate before sync.</p>
+                </div>
+                <div class="task-meta"><time>9:18 AM</time><span class="unread-dot" aria-label="Unread"></span></div>
+                <svg class="task-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+
+            <a class="task-card" href="../../7. Chat/html and css files/chats.html" aria-label="Open Sales representative chat">
+                <div class="avatar">SR</div>
+                <div class="task-copy">
+                    <h2>Sales representative</h2>
+                    <p>Vendor cost estimate needed.</p>
+                    <p>Include licensing, support, timeline by 3 PM.</p>
+                </div>
+                <div class="task-meta"><time>9:26 AM</time></div>
+                <svg class="task-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+
+            <a class="task-card" href="../../7. Chat/html and css files/chats.html" aria-label="Open Legal counsel chat">
+                <div class="avatar">LC</div>
+                <div class="task-copy">
+                    <h2>Legal counsel</h2>
+                    <p>Proposal approved.</p>
+                    <p>Finalize contract &amp; schedule kickoff.</p>
+                </div>
+                <div class="task-meta"><time>9:41 AM</time><span class="unread-dot" aria-label="Unread"></span></div>
+                <svg class="task-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+
+            <a class="task-card" href="../../7. Chat/html and css files/chats.html" aria-label="Open HR manager chat">
+                <div class="avatar">HR</div>
+                <div class="task-copy">
+                    <h2>HR manager</h2>
+                    <p>Stakeholder meeting tomorrow.</p>
+                    <p>Prepare status report — confirm attendance today.</p>
+                </div>
+                <div class="task-meta"><time>10:03 AM</time></div>
+                <svg class="task-chevron" viewBox="0 0 20 20" aria-hidden="true"><path d="m7 3 7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <p class="task-empty" id="task-empty" role="status" hidden>No tasks match your search or filter.</p>
+        </section>
+
+        <a class="add-task-button" href="../../6. Assign Task Screen/html &amp; css files/assign.html" aria-label="Add task">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 5v22M5 16h22" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </a>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item is-current" aria-current="page" href="home.html">
+                <img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true">
+                <span>Home</span>
+            </a>
+            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html">
+                <img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true">
+                <span>Settings</span>
+            </a>
+            <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html">
+                <img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true">
+                <span>Profile</span>
+            </a>
+        </nav>
+    </main>
+    <script>
+        (() => {
+            const restoredChatsUrl = '../../15. Restored Chats/html & css files/restored_chats.html';
+            let hasRestoredChats = false;
+            const sampleRestoredBackup = {
+                fileName: 'sample-restored-backup.json',
+                restoredAt: new Date().toISOString(),
+                isDemo: true,
+                conversations: [
+                    { id: 'sample-1', name: 'Operations Head', messages: [{ sender: 'other', text: 'Please review the updated operations schedule.', time: '9:14 AM' }, { sender: 'you', text: 'Reviewed. The new schedule looks good.', time: '9:22 AM' }] },
+                    { id: 'sample-2', name: 'Project Team', messages: [{ sender: 'other', text: 'The project files are ready for review.', time: 'Yesterday' }, { sender: 'you', text: 'Thanks, I will review them this afternoon.', time: 'Yesterday' }] },
+                    { id: 'sample-3', name: 'HR Manager', messages: [{ sender: 'other', text: 'The updated team leave calendar is available.', time: 'Mon' }, { sender: 'you', text: 'Received. I have saved the updated calendar.', time: 'Mon' }] },
+                    { id: 'sample-4', name: 'Design Team', messages: [{ sender: 'other', text: 'Sharing the final campaign mockups.', time: 'Sun' }, { sender: 'you', text: 'Got them. The latest version is ready to use.', time: 'Sun' }] }
+                ]
+            };
+            try {
+                let restoredBackup = JSON.parse(localStorage.getItem('nails-restored-chats') || 'null');
+                if (!Array.isArray(restoredBackup?.conversations) || restoredBackup.conversations.length === 0) {
+                    restoredBackup = sampleRestoredBackup;
+                    localStorage.setItem('nails-restored-chats', JSON.stringify(restoredBackup));
+                }
+                hasRestoredChats = Array.isArray(restoredBackup?.conversations) && restoredBackup.conversations.length > 0;
+            } catch {
+                localStorage.setItem('nails-restored-chats', JSON.stringify(sampleRestoredBackup));
+                hasRestoredChats = true;
+            }
+            document.getElementById('open-restored-chats').hidden = !hasRestoredChats;
+            const list = document.getElementById('task-list');
+            const empty = document.getElementById('task-empty');
+            const assignedCards = [...list.querySelectorAll('.task-card')];
+            const receivedTasks = [
+                ['Review the revised Q4 campaign plan.', 'Please send your feedback before 4 PM.', '11:18 AM'],
+                ['Confirm the client onboarding schedule.', 'Share the final timeline with the team.', '11:05 AM'],
+                ['Approve the updated vendor analysis.', 'Please confirm the revised cost estimates.', '10:52 AM'],
+                ['Check the pipeline gap report.', 'Add any risks before the weekly sync.', '10:41 AM'],
+                ['Send the latest vendor cost estimate.', 'Include licensing and support details.', '10:28 AM'],
+                ['Review the contract changes.', 'Please confirm the kickoff date.', '10:16 AM'],
+                ['Prepare the stakeholder meeting notes.', 'Share the status report before tomorrow.', '10:03 AM']
+            ];
+            assignedCards.forEach((card) => {
+                card.dataset.inbox = 'assigned';
+                card.href = '../../7. Chat/html and css files/chats.html?type=assigned&inbox=assigned';
+            });
+            const receivedCards = receivedTasks.map(([firstLine, secondLine, time], index) => {
+                const card = assignedCards[index].cloneNode(true);
+                const paragraphs = card.querySelectorAll('.task-copy p');
+                paragraphs[0].textContent = firstLine;
+                paragraphs[1].textContent = secondLine;
+                card.querySelector('time').textContent = time;
+                card.dataset.inbox = 'received';
+                card.href = '../../7. Chat/html and css files/chats.html?type=received&inbox=received';
+                card.hidden = true;
+                card.setAttribute('aria-label', `Open received task from ${card.querySelector('h2').textContent}`);
+                list.insertBefore(card, empty);
+                return card;
+            });
+            const cards = [...assignedCards, ...receivedCards];
+            const standardCardHeight = assignedCards[0].getBoundingClientRect().height;
+            if (standardCardHeight > 0) list.style.setProperty('--task-card-height', `${standardCardHeight}px`);
+            const filterToggle = document.getElementById('filter-toggle');
+            const sortToggle = document.getElementById('sort-toggle');
+            const filterMenu = document.getElementById('filter-menu');
+            const sortMenu = document.getElementById('sort-menu');
+            const assignedTab = document.getElementById('assigned-tab');
+            const receivedTab = document.getElementById('received-tab');
+            const searchToggle = document.getElementById('search-toggle');
+            const searchPanel = document.getElementById('task-search-panel');
+            const searchInput = document.getElementById('task-search');
+            const searchClose = document.getElementById('search-close');
+            let activeFilter = 'all';
+            let activeSort = 'latest';
+            let activeInbox = new URLSearchParams(window.location.search).get('inbox') === 'received' ? 'received' : 'assigned';
+            let searchQuery = '';
+            assignedTab.classList.toggle('is-active', activeInbox === 'assigned');
+            receivedTab.classList.toggle('is-active', activeInbox === 'received');
+            assignedTab.setAttribute('aria-selected', String(activeInbox === 'assigned'));
+            receivedTab.setAttribute('aria-selected', String(activeInbox === 'received'));
+
+            const closeMenus = () => {
+                filterMenu.hidden = true;
+                sortMenu.hidden = true;
+                filterToggle.setAttribute('aria-expanded', 'false');
+                sortToggle.setAttribute('aria-expanded', 'false');
+            };
+
+            const getTime = (card) => {
+                const text = card.querySelector('time').textContent.trim();
+                const [, hoursText, minutesText, meridiem] = text.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i) || [];
+                if (!hoursText) return 0;
+                let hours = Number(hoursText) % 12;
+                if (meridiem.toUpperCase() === 'PM') hours += 12;
+                return hours * 60 + Number(minutesText);
+            };
+
+            const render = () => {
+                const visibleCards = cards.filter((card) => {
+                    const unread = Boolean(card.querySelector('.unread-dot'));
+                    const inActiveInbox = card.dataset.inbox === activeInbox;
+                    const matchesFilter = activeFilter === 'all' || (activeFilter === 'unread' && unread) || (activeFilter === 'read' && !unread);
+                    const matchesSearch = !searchQuery || card.textContent.toLowerCase().includes(searchQuery);
+                    return inActiveInbox && matchesFilter && matchesSearch;
+                });
+
+                visibleCards.sort((a, b) => {
+                    if (activeSort === 'az') return a.querySelector('h2').textContent.localeCompare(b.querySelector('h2').textContent);
+                    return activeSort === 'latest' ? getTime(b) - getTime(a) : getTime(a) - getTime(b);
+                });
+
+                cards.forEach((card) => { card.hidden = true; });
+                visibleCards.forEach((card) => {
+                    card.hidden = false;
+                    list.insertBefore(card, empty);
+                });
+                list.classList.toggle('is-filtered', activeFilter !== 'all' || Boolean(searchQuery));
+                list.setAttribute('aria-label', activeInbox === 'assigned' ? 'Assigned tasks' : 'Received tasks');
+                empty.hidden = visibleCards.length > 0;
+            };
+
+            const selectInbox = (inbox) => {
+                closeMenus();
+                activeInbox = inbox;
+                assignedTab.classList.toggle('is-active', inbox === 'assigned');
+                receivedTab.classList.toggle('is-active', inbox === 'received');
+                assignedTab.setAttribute('aria-selected', String(inbox === 'assigned'));
+                receivedTab.setAttribute('aria-selected', String(inbox === 'received'));
+                activeFilter = 'all';
+                filterToggle.childNodes[0].textContent = 'All Tasks ';
+                filterMenu.querySelectorAll('[data-filter]').forEach((option) => {
+                    const selected = option.dataset.filter === 'all';
+                    option.classList.toggle('is-selected', selected);
+                    option.setAttribute('aria-checked', String(selected));
+                });
+                render();
+            };
+
+            assignedTab.addEventListener('click', () => selectInbox('assigned'));
+            receivedTab.addEventListener('click', () => selectInbox('received'));
+
+            const closeSearch = () => {
+                searchPanel.hidden = true;
+                searchToggle.setAttribute('aria-expanded', 'false');
+                searchInput.value = '';
+                searchQuery = '';
+                render();
+            };
+
+            searchToggle.addEventListener('click', () => {
+                const opening = searchPanel.hidden;
+                searchPanel.hidden = !opening;
+                searchToggle.setAttribute('aria-expanded', String(opening));
+                if (opening) searchInput.focus();
+                else closeSearch();
+            });
+            searchInput.addEventListener('input', () => {
+                searchQuery = searchInput.value.trim().toLowerCase();
+                render();
+            });
+            searchClose.addEventListener('click', closeSearch);
+
+            filterToggle.addEventListener('click', () => {
+                const opening = filterMenu.hidden;
+                closeMenus();
+                filterMenu.hidden = !opening;
+                filterToggle.setAttribute('aria-expanded', String(opening));
+            });
+            sortToggle.addEventListener('click', () => {
+                const opening = sortMenu.hidden;
+                closeMenus();
+                sortMenu.hidden = !opening;
+                sortToggle.setAttribute('aria-expanded', String(opening));
+            });
+
+            filterMenu.addEventListener('click', (event) => {
+                const openRestored = event.target.closest('#open-restored-chats');
+                if (openRestored) {
+                    window.location.href = restoredChatsUrl;
+                    return;
+                }
+                const option = event.target.closest('[data-filter]');
+                if (!option) return;
+                activeFilter = option.dataset.filter;
+                filterToggle.childNodes[0].textContent = option.textContent.trim() + ' ';
+                filterMenu.querySelectorAll('[data-filter]').forEach((item) => {
+                    const selected = item === option;
+                    item.classList.toggle('is-selected', selected);
+                    item.setAttribute('aria-checked', String(selected));
+                });
+                render();
+                closeMenus();
+            });
+
+            sortMenu.addEventListener('click', (event) => {
+                const option = event.target.closest('[data-sort]');
+                if (!option) return;
+                activeSort = option.dataset.sort;
+                sortToggle.querySelector('strong').textContent = option.textContent.trim();
+                sortMenu.querySelectorAll('[data-sort]').forEach((item) => {
+                    const selected = item === option;
+                    item.classList.toggle('is-selected', selected);
+                    item.setAttribute('aria-checked', String(selected));
+                });
+                render();
+                closeMenus();
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!event.target.closest('.toolbar-control')) closeMenus();
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closeMenus();
+                    if (!searchPanel.hidden) {
+                        closeSearch();
+                        searchToggle.focus();
+                    }
+                }
+            });
+            render();
+        })();
+    </script>
+</body>
+</html>

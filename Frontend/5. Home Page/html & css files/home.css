@@ -1,0 +1,583 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    color-scheme: dark;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    min-width: 320px;
+    margin: 0;
+    overflow: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    background: #fff;
+    color: #f7f9fd;
+}
+
+.home-page {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 412px;
+    height: 100vh;
+    height: 100svh;
+    min-height: 0;
+    overflow: hidden;
+    padding: 16px 13px 18px;
+    background:
+        radial-gradient(ellipse at 50% 35%, rgba(9, 30, 77, 0.34), transparent 54%),
+        linear-gradient(160deg, #030817 0%, #020612 52%, #01040c 100%);
+}
+
+.topbar {
+    display: flex;
+    flex: 0 0 44px;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+}
+
+.brand-icon {
+    flex: 0 0 auto;
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+}
+
+.brand-divider {
+    flex: 0 0 1px;
+    height: 32px;
+    margin-left: 1px;
+    background: rgba(188, 200, 220, 0.55);
+}
+
+.brand-copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    gap: 1px;
+    white-space: nowrap;
+}
+
+.brand-copy strong {
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.brand-copy span {
+    overflow: hidden;
+    color: #d5d9e2;
+    font-size: 11px;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+}
+
+.search-button {
+    display: grid;
+    flex: 0 0 auto;
+    width: 34px;
+    height: 38px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #f7f9fd;
+    cursor: pointer;
+}
+
+.search-button svg {
+    width: 27px;
+    height: 27px;
+}
+
+.task-tabs {
+    display: grid;
+    flex: 0 0 40px;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+    padding: 1px;
+    overflow: hidden;
+    border: 1px solid #63718a;
+    border-radius: 18px;
+    background: rgba(2, 8, 20, 0.48);
+}
+
+.task-tab {
+    min-width: 0;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 16px;
+    background: transparent;
+    color: #f4f6fa;
+    font: 500 14px "IBM Plex Sans", sans-serif;
+    cursor: pointer;
+}
+
+.task-tab.is-active {
+    background: linear-gradient(110deg, #0878f9 0%, #0865f4 60%, #0878fb 100%);
+    box-shadow: 0 0 0 1px rgba(65, 171, 255, 0.9), 0 0 12px rgba(0, 111, 255, 0.24);
+    font-weight: 600;
+}
+
+.task-toolbar {
+    display: flex;
+    flex: 0 0 24px;
+    align-items: center;
+    justify-content: space-between;
+    margin: 17px 10px 13px;
+}
+
+.filter-button,
+.sort-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #f3f5f9;
+    font: 500 14px "IBM Plex Sans", sans-serif;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.sort-button {
+    gap: 6px;
+    font-weight: 400;
+}
+
+.sort-button strong {
+    font-weight: 600;
+}
+
+.filter-button svg,
+.sort-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+.task-list {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 8px;
+    min-height: 0;
+}
+
+.task-card {
+    position: relative;
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    min-height: 0;
+    padding: 9px 12px;
+    overflow: hidden;
+    border: 1px solid #384353;
+    border-radius: 14px;
+    color: inherit;
+    text-decoration: none;
+    background: linear-gradient(105deg, rgba(15, 22, 31, 0.94) 0%, rgba(13, 20, 31, 0.94) 70%, rgba(9, 29, 67, 0.98) 100%);
+}
+
+.task-card:focus-visible {
+    outline: 2px solid #36a2ff;
+    outline-offset: 2px;
+}
+
+.task-list.is-filtered .task-card {
+    flex: 0 0 var(--task-card-height, 70px);
+}
+
+.avatar {
+    display: grid;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    margin-right: 13px;
+    place-items: center;
+    border-radius: 50%;
+    background: #293443;
+    color: #f1f4fa;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.task-copy {
+    min-width: 0;
+    padding-right: 42px;
+}
+
+.task-copy h2 {
+    overflow: hidden;
+    margin: 0 0 3px;
+    color: #f7f8fb;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-copy p {
+    overflow: hidden;
+    margin: 0;
+    color: #f1f3f7;
+    font-size: 12.5px;
+    font-weight: 400;
+    line-height: 1.48;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.task-meta {
+    position: absolute;
+    top: 12px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #f1f3f7;
+}
+
+.task-meta time {
+    font-size: 10px;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.unread-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #087dff;
+    box-shadow: 0 0 7px rgba(0, 121, 255, 0.34);
+}
+
+.task-chevron {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+    color: #8ba2c8;
+}
+
+.add-task-button {
+    display: grid;
+    flex: 0 0 52px;
+    align-self: flex-end;
+    width: 52px;
+    height: 52px;
+    margin: 14px 3px 16px 0;
+    place-items: center;
+    border: 1px solid #148fff;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #087dfb, #075eff);
+    box-shadow: 0 0 13px rgba(0, 122, 255, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+}
+
+.add-task-button svg {
+    width: 28px;
+    height: 28px;
+}
+
+.bottom-nav {
+    display: grid;
+    flex: 0 0 70px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+    padding: 7px 9px;
+    border: 1px solid #168fff;
+    border-radius: 28px;
+    background: linear-gradient(110deg, rgba(3, 13, 30, 0.96), rgba(2, 10, 24, 0.94));
+    box-shadow: 0 0 13px rgba(0, 112, 255, 0.26), inset 0 0 14px rgba(0, 93, 255, 0.1);
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    gap: 2px;
+    border-radius: 21px;
+    color: #f1f3f7;
+    font-size: 11px;
+    line-height: 1.1;
+    text-decoration: none;
+}
+
+.nav-item svg {
+    width: 22px;
+    height: 22px;
+}
+
+.nav-item.is-current {
+    background: linear-gradient(145deg, rgba(0, 114, 255, 0.82), rgba(0, 65, 190, 0.62));
+    box-shadow: inset 0 0 10px rgba(48, 159, 255, 0.48), 0 0 10px rgba(0, 102, 255, 0.36);
+    color: #70cbff;
+}
+
+.nav-item.is-current span {
+    color: #fff;
+}
+
+@media (max-height: 900px) {
+    .home-page {
+        padding-top: 10px;
+        padding-bottom: 12px;
+    }
+
+    .task-tabs {
+        margin-top: 14px;
+    }
+
+    .task-toolbar {
+        margin-top: 11px;
+        margin-bottom: 9px;
+    }
+
+    .task-card {
+        padding-top: 6px;
+        padding-bottom: 6px;
+    }
+
+    .avatar {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+    }
+
+    .task-copy h2 {
+        font-size: 14px;
+    }
+
+    .task-copy p {
+        font-size: 11.5px;
+    }
+
+    .add-task-button {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        margin-top: 10px;
+        margin-bottom: 12px;
+    }
+
+    .bottom-nav {
+        flex-basis: 60px;
+    }
+}
+
+@media (max-width: 360px) {
+    .home-page {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .brand-copy span {
+        font-size: 10px;
+    }
+
+    .task-card {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .avatar {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
+        margin-right: 8px;
+        font-size: 15px;
+    }
+
+    .task-copy {
+        padding-right: 38px;
+    }
+
+    .task-copy h2 {
+        font-size: 13px;
+    }
+
+    .task-copy p {
+        font-size: 10.5px;
+    }
+
+    .task-meta time {
+        font-size: 9px;
+    }
+}
+
+/* Shared footer navigation */
+.bottom-nav { flex-basis: 68px; padding: 6px 8px; border: 2px solid #078cff; border-radius: 32px; background: linear-gradient(110deg, rgba(3, 13, 30, .98), rgba(2, 10, 24, .97)); box-shadow: 0 0 16px rgba(0, 126, 255, .32), inset 0 0 16px rgba(0, 93, 255, .12); }
+.nav-item { gap: 4px; border-radius: 28px; font-size: 13px; }
+.nav-item svg { width: 24px; height: 24px; }
+.nav-item.is-current { background: linear-gradient(145deg, #075fce, #0346a8); outline: 1px solid #078cff; box-shadow: inset 0 0 13px rgba(44, 169, 255, .38), 0 0 14px rgba(0, 105, 255, .3); color: #b2e9ff; }
+.nav-item.is-current span { color: #d5f5ff; }
+@media (max-height: 760px) { .bottom-nav { flex-basis: 64px; } }
+.nav-item img { width: 28px; height: 26px; object-fit: contain; }
+.nav-item.is-current img { filter: brightness(0) saturate(100%) invert(79%) sepia(63%) saturate(1136%) hue-rotate(163deg) brightness(104%) contrast(101%); }
+
+.task-toolbar {
+    position: relative;
+    z-index: 2;
+}
+
+.toolbar-control {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toolbar-menu {
+    position: absolute;
+    z-index: 5;
+    top: calc(100% + 8px);
+    display: flex;
+    min-width: 142px;
+    flex-direction: column;
+    padding: 5px;
+    border: 1px solid #168fff;
+    border-radius: 14px;
+    background: linear-gradient(145deg, #0a1930, #040b19);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .48), 0 0 12px rgba(0, 112, 255, .2);
+}
+
+.filter-control .toolbar-menu { left: -7px; }
+.sort-control .toolbar-menu { right: -7px; }
+
+.menu-option {
+    width: 100%;
+    padding: 9px 11px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: #dce6f5;
+    font: 400 13px "IBM Plex Sans", sans-serif;
+    text-align: left;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.menu-option:hover,
+.menu-option:focus-visible,
+.menu-option.is-selected {
+    outline: none;
+    background: rgba(0, 112, 255, .26);
+    color: #fff;
+}
+
+.filter-button[aria-expanded="true"] svg,
+.sort-button[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+}
+
+.filter-button svg,
+.sort-button svg {
+    transition: transform .16s ease;
+}
+
+.toolbar-menu[hidden],
+.task-card[hidden],
+.task-empty[hidden] {
+    display: none;
+}
+
+.task-empty {
+    margin: auto;
+    color: #aebbd0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.topbar {
+    position: relative;
+    z-index: 4;
+}
+
+.search-panel {
+    position: absolute;
+    z-index: 6;
+    top: calc(100% + 9px);
+    right: 0;
+    display: flex;
+    align-items: center;
+    width: min(100%, 330px);
+    height: 46px;
+    gap: 9px;
+    padding: 0 10px 0 13px;
+    border: 1px solid #168fff;
+    border-radius: 15px;
+    background: linear-gradient(145deg, #0a1930, #040b19);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .48), 0 0 13px rgba(0, 112, 255, .22);
+    color: #9fc9ff;
+}
+
+.search-panel > svg {
+    flex: 0 0 21px;
+    width: 21px;
+    height: 21px;
+}
+
+.search-input {
+    flex: 1 1 auto;
+    width: 0;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #f7f9fd;
+    font: 400 14px "IBM Plex Sans", sans-serif;
+}
+
+.search-input::placeholder { color: #8e9bb0; }
+.search-input::-webkit-search-cancel-button { display: none; }
+
+.search-close {
+    display: grid;
+    flex: 0 0 28px;
+    width: 28px;
+    height: 28px;
+    place-items: center;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(120, 153, 196, .13);
+    color: #e7effb;
+    cursor: pointer;
+}
+
+.search-close svg { width: 17px; height: 17px; }
+.search-panel[hidden] { display: none; }
+
+@media (max-width: 360px) {
+    .toolbar-menu { min-width: 128px; }
+    .menu-option { padding: 8px 9px; font-size: 12px; }
+}
+
+/* Compact shared footer sizing */
+.bottom-nav { flex-basis: 60px; padding-bottom: 0; }
+@media (max-height: 760px) { .bottom-nav { flex-basis: 56px; padding-bottom: 0; } }

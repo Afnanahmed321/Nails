@@ -1,0 +1,126 @@
+.notifications-page .settings-content {
+    margin-top: 27px;
+}
+
+.notification-tile img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.notification-option {
+    display: flex;
+    align-items: center;
+    min-height: 82px;
+    gap: 12px;
+    padding: 12px 13px;
+    border: 1px solid #203e70;
+    border-radius: 18px;
+    background: linear-gradient(110deg, rgba(9, 20, 37, .97), rgba(6, 18, 36, .96));
+}
+
+.notification-icon {
+    display: grid;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid rgba(34, 67, 112, .55);
+    border-radius: 13px;
+    background: linear-gradient(145deg, #13294a, #0d1f39);
+    color: #e6f2ff;
+}
+
+.notification-icon svg {
+    width: 26px;
+    height: 26px;
+}
+
+.notification-copy {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-width: 0;
+    gap: 3px;
+}
+
+.notification-copy strong {
+    color: #f7f9fd;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.notification-copy span {
+    color: #b1bdcf;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.preference-toggle {
+    position: relative;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 25px;
+    padding: 0;
+    border: 1px solid #4a5b74;
+    border-radius: 999px;
+    background: #182538;
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+
+.preference-toggle > span {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #c7d0df;
+    transition: transform .2s ease, background .2s ease;
+}
+
+.preference-toggle.is-on {
+    border-color: #078fff;
+    background: linear-gradient(110deg, #0878ff, #075fff);
+    box-shadow: 0 0 10px rgba(0, 126, 255, .28);
+}
+
+.preference-toggle.is-on > span {
+    transform: translateX(19px);
+    background: #fff;
+}
+
+.preference-toggle:focus-visible {
+    outline: 2px solid #79ceff;
+    outline-offset: 3px;
+}
+
+.preferences-note {
+    margin: 15px 4px 0;
+    color: #8f9db2;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+@media (max-height: 760px) {
+    .notifications-page .settings-content { margin-top: 18px; }
+    .notification-list { gap: 8px; margin-top: 18px; }
+    .notification-option { min-height: 70px; padding: 9px 11px; }
+    .notification-icon { flex-basis: 38px; width: 38px; height: 38px; }
+    .notification-copy strong { font-size: 14px; }
+    .notification-copy span { font-size: 11px; }
+}
+
+@media (max-width: 360px) {
+    .notification-option { gap: 9px; padding-right: 9px; padding-left: 10px; }
+    .notification-copy span { font-size: 11px; }
+}

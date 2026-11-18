@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Restore Backup | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="restore.css">
+</head>
+<body>
+    <main class="restore-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+
+        <header class="topbar">
+            <a class="back-button" href="../../10. Settings/html &amp; css files/settings.html" aria-label="Back to Settings"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+
+        <section class="restore-content" aria-labelledby="restore-title">
+            <div class="page-heading">
+                <div class="restore-tile" aria-hidden="true"><img src="../../10. Settings/Assets/restore.png" alt=""></div>
+                <div><h1 id="restore-title">Restore Backup</h1><p>Bring your conversations back.</p></div>
+            </div>
+
+            <section class="intro-card">
+                <div class="intro-icon" aria-hidden="true"><img src="../../10. Settings/Assets/restore.png" alt=""></div>
+                <div><h2>Restore your chats</h2><p>Choose a backup file from your device to restore your conversations.</p></div>
+            </section>
+
+            <form id="restore-form" class="restore-form">
+                <h2>Select a backup file</h2>
+                <p class="section-description">Choose a Nails backup JSON file to restore your conversations.</p>
+                <input id="backup-file" class="file-input" type="file" accept=".json,application/json" aria-label="Choose a backup file">
+                <label class="drop-zone" for="backup-file" id="drop-zone" tabindex="0">
+                    <span class="upload-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M8 24a6 6 0 0 1-.2-12A8.5 8.5 0 0 1 25 11a6.5 6.5 0 0 1 .5 13H8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 23V12m0 0-4 4m4-4 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                    <strong id="file-prompt">Tap to choose a backup</strong>
+                    <span class="file-hint">Nails backup · JSON file</span>
+                    <span class="selected-file" id="selected-file" aria-live="polite"></span>
+                </label>
+
+                <div class="restore-note"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 11v5m0-8h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><p>Restoring a backup adds its conversations to your app.</p></div>
+                <button class="restore-button" id="restore-button" type="submit" disabled><img src="../../10. Settings/Assets/restore.png" alt="" aria-hidden="true"><span>Restore Backup</span></button>
+                <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item" href="../../5. Home Page/html & css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item is-current" href="../../10. Settings/html &amp; css files/settings.html" aria-current="page"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+    <script>
+        (() => {
+            const form = document.getElementById('restore-form');
+            const input = document.getElementById('backup-file');
+            const fileName = document.getElementById('selected-file');
+            const prompt = document.getElementById('file-prompt');
+            const button = document.getElementById('restore-button');
+            const status = document.getElementById('form-status');
+            const dropZone = document.getElementById('drop-zone');
+
+            const showFile = (file) => {
+                if (!file) return;
+                const validExtension = /\.json$/i.test(file.name);
+                if (!validExtension) {
+                    input.value = '';
+                    fileName.textContent = '';
+                    prompt.textContent = 'Tap to choose a backup';
+                    button.disabled = true;
+                    dropZone.classList.remove('has-file');
+                    status.textContent = 'Choose a Nails backup JSON file.';
+                    return;
+                }
+                prompt.textContent = 'Backup file selected';
+                fileName.textContent = `${file.name} · ${(file.size / 1024 / 1024).toFixed(2)} MB`;
+                button.disabled = false;
+                status.textContent = '';
+                dropZone.classList.add('has-file');
+            };
+
+            input.addEventListener('change', () => showFile(input.files[0]));
+            dropZone.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    input.click();
+                }
+            });
+            dropZone.addEventListener('dragover', (event) => {
+                event.preventDefault();
+                dropZone.classList.add('is-dragging');
+            });
+            dropZone.addEventListener('dragleave', () => dropZone.classList.remove('is-dragging'));
+            dropZone.addEventListener('drop', (event) => {
+                event.preventDefault();
+                dropZone.classList.remove('is-dragging');
+                const file = event.dataTransfer.files[0];
+                if (!file) return;
+                const transfer = new DataTransfer();
+                transfer.items.add(file);
+                input.files = transfer.files;
+                showFile(file);
+            });
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                if (!input.files.length) return;
+                const file = input.files[0];
+                button.disabled = true;
+                status.classList.remove('is-success');
+                status.textContent = 'Restoring conversations…';
+                const reader = new FileReader();
+                reader.addEventListener('load', () => {
+                    try {
+                        const backup = JSON.parse(reader.result);
+                        const rawConversations = Array.isArray(backup) ? backup : (backup.conversations || backup.chats);
+                        if (!Array.isArray(rawConversations) || rawConversations.length === 0) {
+                            throw new Error('This file does not contain any conversations.');
+                        }
+                        const conversations = rawConversations.map((conversation, index) => {
+                            const messages = Array.isArray(conversation.messages) ? conversation.messages : [];
+                            return {
+                                id: String(conversation.id || index),
+                                name: String(conversation.name || conversation.title || conversation.contact || `Conversation ${index + 1}`),
+                                messages: messages.map((message, messageIndex) => {
+                                    if (typeof message === 'string') return { sender: 'other', text: message, time: '' };
+                                    return {
+                                        sender: /^(you|me|self)$/i.test(String(message.sender || message.from || '')) ? 'you' : 'other',
+                                        text: String(message.text || message.content || message.message || ''),
+                                        time: String(message.time || message.timestamp || '')
+                                    };
+                                }).filter((message) => message.text.trim())
+                            };
+                        });
+                        localStorage.setItem('nails-restored-chats', JSON.stringify({ fileName: file.name, restoredAt: new Date().toISOString(), conversations }));
+                        window.location.href = '../../15. Restored Chats/html & css files/restored_chats.html';
+                    } catch (error) {
+                        status.textContent = error instanceof SyntaxError ? 'This backup file is not valid JSON.' : (error.message || 'Could not restore this backup file.');
+                        button.disabled = false;
+                    }
+                });
+                reader.addEventListener('error', () => {
+                    status.textContent = 'Could not read the selected backup file.';
+                    button.disabled = false;
+                });
+                reader.readAsText(file);
+            });
+        })();
+    </script>
+</body>
+</html>

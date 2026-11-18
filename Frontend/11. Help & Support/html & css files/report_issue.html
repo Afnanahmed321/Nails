@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#030713">
+    <title>Report an Issue | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="HS.css"><link rel="stylesheet" href="support-pages.css">
+</head>
+<body>
+    <main class="support-page">
+        <div class="ambient-glow" aria-hidden="true"></div><div class="dot-pattern" aria-hidden="true"></div>
+        <header class="topbar">
+            <a class="back-button" href="HS.html" aria-label="Back to Help and Support"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+            <span class="brand-divider" aria-hidden="true"></span><div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+        <section class="support-content support-detail" aria-labelledby="detail-title">
+            <div class="page-heading"><div class="support-tile" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m14 4-11 20a2 2 0 0 0 2 3h22a2 2 0 0 0 2-3L18 4a2.3 2.3 0 0 0-4 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M16 11v7m0 4h.01" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></div><div><h1 id="detail-title">Report an Issue</h1><p>Tell us what went wrong so we can look into it.</p></div></div>
+            <section class="detail-card report-note"><span aria-hidden="true">ⓘ</span><p>Include what you were doing and what happened. Please don’t include passwords or other sensitive information.</p></section>
+            <form class="detail-card support-form" id="issue-form">
+                <h2>Issue details</h2>
+                <label>Issue type<select id="issue-type"><option>Something isn’t working</option><option>Sign-in or account</option><option>Chat or task</option><option>Backup or restore</option><option>Other</option></select></label>
+                <label>Short summary<input id="issue-summary" type="text" maxlength="100" placeholder="Summarize the issue" required></label>
+                <label>What happened?<textarea id="issue-description" rows="5" maxlength="1200" placeholder="Describe the steps and what you expected..." required></textarea></label>
+                <button class="detail-submit" type="submit">Continue to Email <span aria-hidden="true">→</span></button>
+                <p class="detail-status" id="issue-status" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item" href="../../5. Home Page/html &amp; css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
+            <a class="nav-item is-current" aria-current="page" href="../../10. Settings/html &amp; css files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+    <script>
+        document.getElementById('issue-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const subject = `Nails issue report: ${document.getElementById('issue-summary').value.trim()}`;
+            const body = `Issue type: ${document.getElementById('issue-type').value}\n\n${document.getElementById('issue-description').value.trim()}`;
+            document.getElementById('issue-status').textContent = 'Opening your email app with the issue details…';
+            window.location.href = `mailto:support@nails.app?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        });
+    </script>
+</body>
+</html>

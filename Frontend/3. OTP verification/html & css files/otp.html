@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Verify your number | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="otp.css">
+</head>
+<body>
+    <main class="otp-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+
+        <header class="brand" aria-label="Nails">
+            <img class="brand-logo" src="../../2. Welcome/Assets/logo.png" alt="">
+            <div class="brand-name">nails</div>
+            <p class="brand-tagline">next action inputs linedup system</p>
+        </header>
+
+        <section class="otp-content" aria-labelledby="otp-title">
+            <div class="intro">
+                <h1 id="otp-title">Verify your number</h1>
+                <p>Enter the 6-digit OTP we sent to your WhatsApp on <strong>+91 98765 43210.</strong></p>
+            </div>
+
+            <form class="verification-form" action="#" method="get">
+                <fieldset class="otp-inputs">
+                    <legend class="visually-hidden">Enter the 6-digit verification code</legend>
+                    <input aria-label="Digit 1" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]*" maxlength="1" autofocus>
+                    <input aria-label="Digit 2" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                    <input aria-label="Digit 3" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                    <input aria-label="Digit 4" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                    <input aria-label="Digit 5" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                    <input aria-label="Digit 6" inputmode="numeric" pattern="[0-9]*" maxlength="1">
+                </fieldset>
+
+                <p class="resend-timer" aria-live="polite">
+                    <span class="resend-label">Resend OTP in</span>
+                    <button class="resend-button" type="button" disabled>00:29</button>
+                </p>
+
+                <button class="verify-button" type="submit">
+                    <span>Verify OTP</span>
+                    <svg viewBox="0 0 32 32" aria-hidden="true">
+                        <path d="M5 16h21M17 6l10 10-10 10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </form>
+
+            <a class="change-number" href="../../2. Welcome/html &amp; css files/welcome.html">Change mobile number</a>
+        </section>
+    </main>
+    <script>
+        const resendLabel = document.querySelector(".resend-label");
+        const resendButton = document.querySelector(".resend-button");
+        let remainingSeconds = 29;
+        let countdown;
+
+        function startResendCountdown() {
+            clearInterval(countdown);
+            remainingSeconds = 29;
+            resendLabel.textContent = "Resend OTP in";
+            resendButton.disabled = true;
+            updateResendTimer();
+
+            countdown = setInterval(() => {
+                remainingSeconds -= 1;
+                updateResendTimer();
+
+                if (remainingSeconds <= 0) {
+                    clearInterval(countdown);
+                    resendLabel.textContent = "";
+                    resendButton.textContent = "Resend OTP";
+                    resendButton.disabled = false;
+                }
+            }, 1000);
+        }
+
+        function updateResendTimer() {
+            const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, "0");
+            const seconds = String(remainingSeconds % 60).padStart(2, "0");
+            resendButton.textContent = `${minutes}:${seconds}`;
+        }
+
+        resendButton.addEventListener("click", startResendCountdown);
+        startResendCountdown();
+
+        const otpFields = [...document.querySelectorAll(".otp-inputs input")];
+
+        otpFields.forEach((field, index) => {
+            field.addEventListener("input", () => {
+                const digits = field.value.replace(/\D/g, "");
+
+                if (digits.length > 1) {
+                    digits.slice(0, otpFields.length - index).split("").forEach((digit, offset) => {
+                        otpFields[index + offset].value = digit;
+                    });
+                    otpFields[Math.min(index + digits.length, otpFields.length - 1)].focus();
+                    return;
+                }
+
+                field.value = digits;
+                if (digits && index < otpFields.length - 1) {
+                    otpFields[index + 1].focus();
+                }
+            });
+
+            field.addEventListener("keydown", (event) => {
+                if (event.key === "Backspace" && !field.value && index > 0) {
+                    otpFields[index - 1].value = "";
+                    otpFields[index - 1].focus();
+                }
+            });
+
+            field.addEventListener("paste", (event) => {
+                const digits = event.clipboardData.getData("text").replace(/\D/g, "");
+                if (!digits) return;
+
+                event.preventDefault();
+                digits.slice(0, otpFields.length - index).split("").forEach((digit, offset) => {
+                    otpFields[index + offset].value = digit;
+                });
+                otpFields[Math.min(index + digits.length, otpFields.length - 1)].focus();
+            });
+        });
+    </script>
+</body>
+</html>
