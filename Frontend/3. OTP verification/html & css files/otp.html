@@ -26,7 +26,7 @@
                 <p>Enter the 6-digit OTP we sent to your WhatsApp on <strong>+91 98765 43210.</strong></p>
             </div>
 
-            <form class="verification-form" action="#" method="get">
+            <form class="verification-form" id="verification-form">
                 <fieldset class="otp-inputs">
                     <legend class="visually-hidden">Enter the 6-digit verification code</legend>
                     <input aria-label="Digit 1" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]*" maxlength="1" autofocus>
@@ -87,6 +87,19 @@
 
         resendButton.addEventListener("click", startResendCountdown);
         startResendCountdown();
+
+        const submittedPhone = sessionStorage.getItem("nails-phone");
+        if (submittedPhone) {
+            document.querySelector(".intro p").innerHTML = `Enter the 6-digit OTP we sent to your WhatsApp on <strong>${submittedPhone}.</strong>`;
+        }
+
+        document.querySelector("#verification-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            window.location.href = new URL(
+                "../../4. Designation setup screen/html & css files/designation.html",
+                window.location.href
+            ).href;
+        });
 
         const otpFields = [...document.querySelectorAll(".otp-inputs input")];
 

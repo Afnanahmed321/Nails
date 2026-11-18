@@ -59,6 +59,13 @@
             "HR Manager"
         ];
 
+        document.querySelector(".continue-button").addEventListener("click", () => {
+            window.location.href = new URL(
+                "../../5. Home Page/html & css files/home.html",
+                window.location.href
+            ).href;
+        });
+
         designationInput.addEventListener("input", () => {
             const query = designationInput.value.trim().toLowerCase();
             suggestionList.replaceChildren();

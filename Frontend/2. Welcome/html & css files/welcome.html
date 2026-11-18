@@ -57,7 +57,7 @@
 
 
             <!-- LOGIN FORM -->
-            <form class="login-form" action="#" method="get">
+            <form class="login-form" id="registration-form">
 
                 <label class="phone-field">
 
@@ -139,6 +139,19 @@
         </section>
 
     </main>
+
+    <script>
+        document.querySelector("#registration-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const countryCode = document.querySelector(".country-code").value;
+            const phone = document.querySelector('.phone-field input[type="tel"]').value.replace(/\D/g, "");
+            sessionStorage.setItem("nails-phone", `${countryCode} ${phone}`);
+            window.location.href = new URL(
+                "../../3. OTP verification/html & css files/otp.html",
+                window.location.href
+            ).href;
+        });
+    </script>
 
 </body>
 </html>
