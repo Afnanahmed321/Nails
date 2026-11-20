@@ -20,14 +20,14 @@
                 <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             </a>
             <h1>General Manager</h1>
+            <div class="selection-toolbar" id="selection-toolbar" hidden aria-label="Selected messages">
+                <button type="button" class="selection-close" id="selection-close" aria-label="Clear selection"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+                <span class="selection-count" id="selection-count" aria-live="polite">1</span>
+                <span class="selection-spacer"></span>
+                <button type="button" class="selection-action" id="selection-delete" aria-label="Delete selected message"><img src="../Assets/delete.png" alt="" aria-hidden="true"></button>
+                <button type="button" class="selection-action" id="selection-edit" aria-label="Edit selected message" disabled><img src="../Assets/edit.png" alt="" aria-hidden="true"></button>
+            </div>
         </header>
-
-        <section class="pinned-task" aria-label="Pinned task">
-            <span class="pin-icon" aria-hidden="true"><img src="../Assets/pin.png" alt=""></span>
-            <span class="pinned-divider" aria-hidden="true"></span>
-            <span class="pinned-copy"><strong>Pinned Task</strong><span id="pinned-task-copy">Prepare Q4 campaign summary by Friday.</span></span>
-            <button class="pinned-edit" id="edit-pinned-task" type="button" aria-label="Edit pinned task" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5M4 20l4.2-.9L20 7.3 16.7 4 4.9 15.8 4 20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Edit</span></button>
-        </section>
 
         <div class="expiry-notice" role="note">
             <span class="notice-line" aria-hidden="true"></span>
@@ -39,7 +39,7 @@
         <section class="conversation" aria-label="Conversation with General Manager">
             <div class="message-group incoming">
                 <p class="message-meta">General Manager <span>•</span> 11:12</p>
-                <div class="message-bubble" id="pinned-task-message" tabindex="-1">Prepare Q4 campaign summary by Friday.</div>
+                <div class="message-bubble">Prepare Q4 campaign summary by Friday.</div>
             </div>
 
             <div class="message-group outgoing">
@@ -69,20 +69,39 @@
         </section>
 
         <form class="message-composer" id="message-composer">
-            <button class="composer-add" type="button" aria-label="Add attachment"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M14 4v20M4 14h20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-            <span class="composer-divider" aria-hidden="true"></span>
-            <input id="chat-message-input" type="text" aria-label="Message" placeholder="Message General Manager..." autocomplete="off">
-            <button class="microphone-button" type="button" aria-label="Record voice message"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="10" y="3" width="8" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 13a8 8 0 0 0 16 0M14 21v4m-4 0h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
-            <button class="send-message" type="submit" aria-label="Send message"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m4 5 25 11L4 27l4-10-4-12Z" fill="currentColor"/><path d="M8 17h15" stroke="#0878f9" stroke-width="1.7"/></svg></button>
+            <div class="reply-preview" id="reply-preview" hidden>
+                <span class="reply-preview-accent" aria-hidden="true"></span>
+                <span class="reply-preview-copy"><strong id="reply-sender"></strong><span id="reply-text"></span></span>
+                <button type="button" id="cancel-reply" aria-label="Cancel reply">×</button>
+            </div>
+            <div class="composer-row">
+                <input id="chat-message-input" type="text" aria-label="Message" placeholder="Message General Manager..." autocomplete="off">
+                <button class="microphone-button" type="button" aria-label="Record voice message"><svg viewBox="0 0 28 28" aria-hidden="true"><rect x="10" y="3" width="8" height="15" rx="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 13a8 8 0 0 0 16 0M14 21v4m-4 0h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+                <button class="send-message" type="submit" aria-label="Send message"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m4 5 25 11L4 27l4-10-4-12Z" fill="currentColor"/><path d="M8 17h15" stroke="#0878f9" stroke-width="1.7"/></svg></button>
+            </div>
         </form>
 
-        <section class="task-edit-overlay" id="task-edit-overlay" role="dialog" aria-modal="true" aria-labelledby="task-edit-title" hidden>
-            <form class="task-edit-card" id="task-edit-form">
-                <h2 id="task-edit-title">Edit pinned task</h2>
-                <label class="visually-hidden" for="task-edit-input">Task details</label>
-                <textarea id="task-edit-input" maxlength="500" required></textarea>
-                <p class="task-edit-status" id="task-edit-status" role="status" aria-live="polite"></p>
-                <div class="task-edit-actions"><button class="task-edit-cancel" id="cancel-task-edit" type="button">Cancel</button><button class="task-edit-save" type="submit">Save changes</button></div>
+        <section class="delete-confirmation" id="delete-confirmation" role="dialog" aria-modal="true" aria-labelledby="delete-title" hidden>
+            <div class="delete-dialog">
+                <span class="delete-dialog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3m3 0-.8 13H6.8L6 7m4 4v5m4-5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <h2 id="delete-title">Delete message?</h2>
+                <div class="delete-dialog-actions">
+                    <button type="button" class="delete-everyone" id="delete-everyone">Delete for everyone</button>
+                    <button type="button" class="delete-me" id="delete-me">Delete for me</button>
+                    <button type="button" class="delete-cancel" id="delete-cancel">Cancel</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="edit-message-overlay" id="edit-message-overlay" role="dialog" aria-modal="true" aria-labelledby="edit-message-title" hidden>
+            <header class="edit-screen-header">
+                <button type="button" class="edit-screen-back" id="edit-message-cancel" aria-label="Cancel editing"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5m0 0 7-7m-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                <h2 id="edit-message-title">Edit message</h2>
+            </header>
+            <form class="edit-message-form" id="edit-message-form">
+                <label class="visually-hidden" for="edit-message-input">Message text</label>
+                <textarea id="edit-message-input" rows="1" required></textarea>
+                <button class="edit-message-save" type="submit" aria-label="Save edited message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4.5 4.5L19 7" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
             </form>
         </section>
 
@@ -90,51 +109,199 @@
     <script>
         const threadParams = new URLSearchParams(window.location.search);
         const threadType = threadParams.get('type') === 'received' ? 'received' : 'assigned';
-        const canEditTask = threadType === 'assigned';
-        const editTaskButton = document.getElementById('edit-pinned-task');
-        const editOverlay = document.getElementById('task-edit-overlay');
-        const editInput = document.getElementById('task-edit-input');
-        const pinnedTaskCopy = document.getElementById('pinned-task-copy');
-        const pinnedTaskMessage = document.getElementById('pinned-task-message');
-        const taskStatus = document.getElementById('task-edit-status');
         document.getElementById('chat-back').href = `../../5. Home Page/html & css files/home.html?inbox=${threadType}`;
-        editTaskButton.hidden = !canEditTask;
-        const savedPinnedTask = localStorage.getItem('nails-pinned-task');
-        if (savedPinnedTask) {
-            pinnedTaskCopy.textContent = savedPinnedTask;
-            pinnedTaskMessage.textContent = savedPinnedTask;
-        }
-
-        if (canEditTask) {
-            editTaskButton.addEventListener('click', () => {
-                editInput.value = pinnedTaskCopy.textContent.trim();
-                taskStatus.textContent = '';
-                editOverlay.hidden = false;
-                editInput.focus();
-            });
-            document.getElementById('cancel-task-edit').addEventListener('click', () => { editOverlay.hidden = true; });
-            document.getElementById('task-edit-form').addEventListener('submit', (event) => {
-                event.preventDefault();
-                const updatedTask = editInput.value.trim();
-                if (!updatedTask) {
-                    taskStatus.textContent = 'Enter task details before saving.';
-                    editInput.focus();
-                    return;
-                }
-                pinnedTaskCopy.textContent = updatedTask;
-                pinnedTaskMessage.textContent = updatedTask;
-                localStorage.setItem('nails-pinned-task', updatedTask);
-                editOverlay.hidden = true;
-            });
-        }
-
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape' && !editOverlay.hidden) editOverlay.hidden = true;
-        });
 
         const composer = document.getElementById('message-composer');
         const messageInput = document.getElementById('chat-message-input');
         const conversation = document.querySelector('.conversation');
+        const selectionToolbar = document.getElementById('selection-toolbar');
+        const deleteConfirmation = document.getElementById('delete-confirmation');
+        const editMessageOverlay = document.getElementById('edit-message-overlay');
+        const editMessageInput = document.getElementById('edit-message-input');
+        const replyPreview = document.getElementById('reply-preview');
+        const deleteButton = document.getElementById('selection-delete');
+        const selectedMessages = new Set();
+        let replyTarget = null;
+        let swipeStart = null;
+        let suppressBubbleClickTarget = null;
+        let suppressBubbleClickUntil = 0;
+        const messageText = (bubble) => [...bubble.childNodes]
+            .filter((node) => !node.matches?.('.edited-label, .message-receipt, .reply-context'))
+            .map((node) => node.textContent)
+            .join('')
+            .trim();
+
+        function clearReply() {
+            replyTarget = null;
+            replyPreview.hidden = true;
+            document.getElementById('reply-sender').textContent = '';
+            document.getElementById('reply-text').textContent = '';
+        }
+
+        function startReply(bubble) {
+            if (!bubble || bubble.classList.contains('is-deleted')) return;
+            replyTarget = bubble;
+            document.getElementById('reply-sender').textContent = bubble.closest('.message-group.outgoing') ? 'You' : 'General Manager';
+            document.getElementById('reply-text').textContent = messageText(bubble);
+            replyPreview.hidden = false;
+            messageInput.focus();
+        }
+
+        function setMessageText(bubble, text) {
+            const textNode = [...bubble.childNodes].find((node) => node.nodeType === Node.TEXT_NODE);
+            if (textNode) textNode.textContent = text;
+            else bubble.insertBefore(document.createTextNode(text), bubble.querySelector('.message-receipt'));
+
+            if (!bubble.querySelector('.edited-label')) {
+                const label = document.createElement('span');
+                label.className = 'edited-label';
+                label.textContent = 'Edited';
+                bubble.insertBefore(label, bubble.firstChild);
+            }
+        }
+
+        function updateSelection() {
+            const active = selectedMessages.size > 0;
+            selectionToolbar.hidden = !active;
+            document.querySelector('.chat-header h1').hidden = active;
+            document.getElementById('chat-back').hidden = active;
+            document.getElementById('selection-count').textContent = selectedMessages.size;
+            document.querySelectorAll('.message-bubble').forEach((bubble) => {
+                if (bubble.classList.contains('is-deleted')) return;
+                bubble.classList.toggle('is-selected', selectedMessages.has(bubble));
+                bubble.setAttribute('aria-pressed', String(selectedMessages.has(bubble)));
+            });
+            const editButton = document.getElementById('selection-edit');
+            editButton.disabled = selectedMessages.size !== 1 || ![...selectedMessages][0]?.closest('.message-group.outgoing');
+            document.getElementById('delete-everyone').disabled = !selectedMessages.size || [...selectedMessages].some((bubble) => !bubble.closest('.message-group.outgoing'));
+        }
+
+        conversation.querySelectorAll('.message-bubble').forEach((bubble) => {
+            bubble.setAttribute('role', 'button');
+            bubble.setAttribute('tabindex', '0');
+            bubble.setAttribute('aria-pressed', 'false');
+        });
+
+        function clearSelection() {
+            selectedMessages.clear();
+            updateSelection();
+        }
+
+        conversation.addEventListener('click', (event) => {
+            const bubble = event.target.closest('.message-bubble');
+            if (!bubble || bubble.classList.contains('is-deleted')) return;
+            if (suppressBubbleClickTarget === bubble && performance.now() < suppressBubbleClickUntil) {
+                suppressBubbleClickTarget = null;
+                suppressBubbleClickUntil = 0;
+                return;
+            }
+            if (selectedMessages.has(bubble)) selectedMessages.delete(bubble);
+            else selectedMessages.add(bubble);
+            updateSelection();
+        });
+
+        conversation.addEventListener('pointerdown', (event) => {
+            const bubble = event.target.closest('.message-bubble');
+            if (!bubble || bubble.classList.contains('is-deleted') || selectedMessages.size) return;
+            swipeStart = { bubble, x: event.clientX, y: event.clientY };
+        });
+
+        conversation.addEventListener('pointerup', (event) => {
+            if (!swipeStart) return;
+            const deltaX = event.clientX - swipeStart.x;
+            const deltaY = event.clientY - swipeStart.y;
+            const target = swipeStart.bubble;
+            swipeStart = null;
+            if (deltaX < 58 || Math.abs(deltaX) < Math.abs(deltaY) * 1.25) return;
+            suppressBubbleClickTarget = target;
+            suppressBubbleClickUntil = performance.now() + 400;
+            window.setTimeout(() => {
+                if (suppressBubbleClickTarget === target) {
+                    suppressBubbleClickTarget = null;
+                    suppressBubbleClickUntil = 0;
+                }
+            }, 400);
+            startReply(target);
+        });
+
+        conversation.addEventListener('pointercancel', () => { swipeStart = null; });
+        document.getElementById('cancel-reply').addEventListener('click', clearReply);
+
+        conversation.addEventListener('keydown', (event) => {
+            if ((event.key !== 'Enter' && event.key !== ' ') || !event.target.matches('.message-bubble')) return;
+            event.preventDefault();
+            event.target.click();
+        });
+
+        document.getElementById('selection-close').addEventListener('click', clearSelection);
+        function closeDeleteConfirmation() {
+            deleteConfirmation.hidden = true;
+            deleteButton.focus();
+        }
+
+        deleteButton.addEventListener('click', () => {
+            if (!selectedMessages.size) return;
+            deleteConfirmation.hidden = false;
+            const deleteEveryoneButton = document.getElementById('delete-everyone');
+            deleteEveryoneButton.disabled = [...selectedMessages].some((bubble) => !bubble.closest('.message-group.outgoing'));
+            document.getElementById(deleteEveryoneButton.disabled ? 'delete-me' : 'delete-everyone').focus();
+        });
+
+        function deleteSelectedForMe() {
+            if (replyTarget && selectedMessages.has(replyTarget)) clearReply();
+            selectedMessages.forEach((bubble) => bubble.closest('.message-group').remove());
+            deleteConfirmation.hidden = true;
+            clearSelection();
+        }
+
+        function deleteSelectedForEveryone() {
+            selectedMessages.forEach((bubble) => {
+                if (!bubble.closest('.message-group.outgoing')) return;
+                if (replyTarget === bubble) clearReply();
+                bubble.classList.remove('is-selected');
+                bubble.classList.add('is-deleted');
+                bubble.innerHTML = '<span class="deleted-message-mark" aria-hidden="true">⊘</span><em>You deleted this message</em>';
+                bubble.removeAttribute('role');
+                bubble.removeAttribute('tabindex');
+                bubble.removeAttribute('aria-pressed');
+            });
+            deleteConfirmation.hidden = true;
+            clearSelection();
+        }
+
+        document.getElementById('delete-everyone').addEventListener('click', deleteSelectedForEveryone);
+        document.getElementById('delete-me').addEventListener('click', deleteSelectedForMe);
+        document.getElementById('delete-cancel').addEventListener('click', closeDeleteConfirmation);
+        deleteConfirmation.addEventListener('click', (event) => {
+            if (event.target === deleteConfirmation) closeDeleteConfirmation();
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && !deleteConfirmation.hidden) closeDeleteConfirmation();
+            if (event.key === 'Escape' && !editMessageOverlay.hidden) closeEditMessage();
+        });
+        document.getElementById('selection-edit').addEventListener('click', () => {
+            const bubble = [...selectedMessages][0];
+            if (!bubble || !bubble.closest('.message-group.outgoing')) return;
+            editMessageInput.value = messageText(bubble);
+            editMessageOverlay.hidden = false;
+            editMessageInput.focus();
+            editMessageInput.setSelectionRange(editMessageInput.value.length, editMessageInput.value.length);
+        });
+
+        function closeEditMessage() {
+            editMessageOverlay.hidden = true;
+            clearSelection();
+        }
+
+        document.getElementById('edit-message-cancel').addEventListener('click', closeEditMessage);
+        document.getElementById('edit-message-form').addEventListener('submit', (event) => {
+            event.preventDefault();
+            const revisedText = editMessageInput.value.trim();
+            const bubble = [...selectedMessages][0];
+            if (!revisedText || !bubble?.closest('.message-group.outgoing')) return;
+            setMessageText(bubble, revisedText);
+            closeEditMessage();
+        });
 
         function setReceiptState(receipt, state) {
             receipt.classList.remove('is-sent', 'is-delivered', 'is-read');
@@ -164,6 +331,19 @@
             meta.append(separator, document.createTextNode(` ${time}`));
             const bubble = document.createElement('div');
             bubble.className = 'message-bubble';
+            bubble.setAttribute('role', 'button');
+            bubble.setAttribute('tabindex', '0');
+            bubble.setAttribute('aria-pressed', 'false');
+            if (replyTarget) {
+                const replyContext = document.createElement('span');
+                replyContext.className = 'reply-context';
+                const repliedSender = document.createElement('strong');
+                repliedSender.textContent = document.getElementById('reply-sender').textContent;
+                const repliedText = document.createElement('span');
+                repliedText.textContent = document.getElementById('reply-text').textContent;
+                replyContext.append(repliedSender, repliedText);
+                bubble.append(replyContext);
+            }
             bubble.append(document.createTextNode(text));
             const receipt = document.createElement('div');
             receipt.className = 'message-receipt is-sent';
@@ -180,6 +360,7 @@
             group.append(meta, bubble);
             conversation.append(group);
             messageInput.value = '';
+            clearReply();
             conversation.scrollTop = conversation.scrollHeight;
             window.setTimeout(() => setReceiptState(receipt, 'delivered'), 850);
             window.setTimeout(() => setReceiptState(receipt, 'read'), 2500);

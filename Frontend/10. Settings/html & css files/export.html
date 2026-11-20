@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#030713">
+    <title>Export chats | Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="export.css">
+    <link rel="stylesheet" href="../../Footer/footer.css">
+</head>
+<body>
+    <main class="export-page">
+        <div class="ambient-glow" aria-hidden="true"></div>
+        <div class="dot-pattern" aria-hidden="true"></div>
+
+        <header class="topbar">
+            <a class="back-button" href="settings.html" aria-label="Back to Settings">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M26 16H6m0 0 10-10M6 16l10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+            <span class="brand-divider" aria-hidden="true"></span>
+            <div class="brand-copy"><strong>nails</strong><span>next action inputs linedup system</span></div>
+        </header>
+
+        <section class="export-content" aria-labelledby="export-title">
+            <div class="page-heading">
+                <div class="export-tile" aria-hidden="true"><img src="../Assets/export.png" alt=""></div>
+                <div><h1 id="export-title">Export chats</h1><p>Save your conversations to your device.</p></div>
+            </div>
+
+            <fieldset class="format-options">
+                <legend>Choose a format</legend>
+                <label class="format-option is-selected">
+                    <input type="radio" name="export-format" value="excel" checked>
+                    <span class="radio-mark" aria-hidden="true"></span>
+                    <span class="format-icon excel-icon" aria-hidden="true"><img src="../Assets/excel.png" alt=""></span>
+                    <span class="format-copy"><strong>Excel</strong><small>Spreadsheet file (.csv)</small></span>
+                    <svg class="format-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </label>
+                <label class="format-option">
+                    <input type="radio" name="export-format" value="pdf">
+                    <span class="radio-mark" aria-hidden="true"></span>
+                    <span class="format-icon pdf-icon" aria-hidden="true"><img src="../Assets/pdf.png" alt=""></span>
+                    <span class="format-copy"><strong>PDF</strong><small>Portable document (.pdf)</small></span>
+                    <svg class="format-check" viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </label>
+            </fieldset>
+
+            <button class="export-button" id="export-button" type="button">
+                <span>Export</span>
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 21V5m-7 7 7-7 7 7M5 21v6h22v-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="export-status" id="export-status" role="status" aria-live="polite"></p>
+            <p class="download-note">Your exported file will be saved to the Downloads folder on your device.</p>
+        </section>
+
+        <nav class="bottom-nav" aria-label="Main navigation">
+            <a class="nav-item" href="../../5. Home Page/html &amp; css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
+            <a class="nav-item is-current" aria-current="page" href="settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
+            <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
+        </nav>
+    </main>
+
+    <script>
+        const conversations = [
+            ["Contact", "Chat summary", "Latest task", "Time"],
+            ["General Manager", "Campaign planning", "Prepare Q4 campaign summary; confirm Friday review.", "9:42 AM"],
+            ["Team Leader", "Client onboarding", "Draft onboarding deck and share milestones by Thursday.", "8:36 AM"],
+            ["Account Executive", "Vendor analysis", "Review vendor analysis and report savings by tomorrow.", "9:12 AM"],
+            ["Field Engineer", "Pipeline analysis", "Run gap analysis and escalate risks before sync.", "9:18 AM"],
+            ["Sales Representative", "Cost estimate", "Include licensing, support, and timeline by 3 PM.", "9:26 AM"],
+            ["Legal Counsel", "Contract review", "Finalize contract and schedule kickoff.", "9:41 AM"],
+            ["HR Manager", "Stakeholder meeting", "Prepare status report and confirm attendance.", "10:03 AM"]
+        ];
+
+        const exportButton = document.querySelector("#export-button");
+        const exportStatus = document.querySelector("#export-status");
+        const downloadNote = document.querySelector(".download-note");
+        const formatInputs = [...document.querySelectorAll('input[name="export-format"]')];
+
+        formatInputs.forEach((input) => {
+            input.addEventListener("change", () => {
+                document.querySelectorAll(".format-option").forEach((option) => {
+                    option.classList.toggle("is-selected", option.querySelector("input").checked);
+                });
+                exportStatus.textContent = "";
+            });
+        });
+
+        function csvText(rows) {
+            return "\uFEFF" + rows.map((row) => row.map((value) => `"${String(value).replaceAll('"', '""')}"`).join(",")).join("\r\n");
+        }
+
+        function pdfText(rows) {
+            const safe = (value) => String(value).normalize("NFKD").replace(/[^\x20-\x7E]/g, "?").replaceAll("\\", "\\\\").replaceAll("(", "\\(").replaceAll(")", "\\)");
+            const lines = rows.flatMap((row, index) => index === 0
+                ? [row.join("  |  "), "------------------------------------------------------------"]
+                : [`${row[0]} - ${row[1]}`, `  ${row[2]}`, `  ${row[3]}`, ""]);
+            const commands = ["BT", "/F1 16 Tf", "50 750 Td", "(Nails - Chat Export) Tj", "/F1 9 Tf", "0 -28 Td"];
+            lines.slice(0, 48).forEach((line, index) => {
+                if (index) commands.push("0 -14 Td");
+                commands.push(`(${safe(line)}) Tj`);
+            });
+            commands.push("ET");
+            const stream = commands.join("\n");
+            const objects = [
+                "<< /Type /Catalog /Pages 2 0 R >>",
+                "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+                "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
+                "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+                `<< /Length ${stream.length} >>\nstream\n${stream}\nendstream`
+            ];
+            let document = "%PDF-1.4\n";
+            const offsets = [0];
+            objects.forEach((object, index) => {
+                offsets.push(document.length);
+                document += `${index + 1} 0 obj\n${object}\nendobj\n`;
+            });
+            const xrefOffset = document.length;
+            document += `xref\n0 ${objects.length + 1}\n0000000000 65535 f \n`;
+            offsets.slice(1).forEach((offset) => { document += `${String(offset).padStart(10, "0")} 00000 n \n`; });
+            document += `trailer\n<< /Size ${objects.length + 1} /Root 1 0 R >>\nstartxref\n${xrefOffset}\n%%EOF`;
+            return document;
+        }
+
+        exportButton.addEventListener("click", () => {
+            const format = formatInputs.find((input) => input.checked).value;
+            exportButton.disabled = true;
+            exportButton.querySelector("span").textContent = "Exporting…";
+            exportStatus.textContent = "Preparing your export…";
+
+            window.setTimeout(() => {
+                const isPdf = format === "pdf";
+                const fileName = `nails-chats-${new Date().toISOString().slice(0, 10)}.${isPdf ? "pdf" : "csv"}`;
+                const content = isPdf ? pdfText(conversations) : csvText(conversations);
+                const blob = new Blob([content], { type: isPdf ? "application/pdf" : "text/csv;charset=utf-8" });
+                const downloadLink = document.createElement("a");
+                const downloadUrl = URL.createObjectURL(blob);
+                downloadLink.href = downloadUrl;
+                downloadLink.download = fileName;
+                document.body.append(downloadLink);
+                downloadLink.click();
+                downloadLink.remove();
+                URL.revokeObjectURL(downloadUrl);
+                exportStatus.textContent = `Exported to ${isPdf ? "PDF" : "Excel"} successfully. Find ${fileName} in your device’s Downloads folder.`;
+                downloadNote.hidden = true;
+                exportButton.disabled = false;
+                exportButton.querySelector("span").textContent = "Export";
+            }, 450);
+        });
+    </script>
+</body>
+</html>

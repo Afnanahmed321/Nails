@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="chats_backup.css">
+    <link rel="stylesheet" href="../../Footer/footer.css">
 </head>
 <body>
     <main class="backup-page">
@@ -47,45 +48,6 @@
                 <span class="status-pill"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Completed</span>
             </section>
 
-            <h2 class="option-heading">Backup Options</h2>
-            <div class="backup-options">
-                <label class="backup-option is-selected conversation-option">
-                    <input type="radio" name="backup-option" value="conversation" checked>
-                    <span class="radio-mark" aria-hidden="true"></span>
-                    <span class="option-copy"><strong>Backup This Conversation</strong><span>Save only this chat with General Manager.</span></span>
-                    <span class="chat-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 6h22a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3h-11l-8 5v-5H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="10" cy="15.5" r="1" fill="currentColor"/><circle cx="16" cy="15.5" r="1" fill="currentColor"/><circle cx="22" cy="15.5" r="1" fill="currentColor"/></svg></span>
-                </label>
-                <label class="backup-option all-option">
-                    <input type="radio" name="backup-option" value="all">
-                    <span class="radio-mark" aria-hidden="true"></span>
-                    <span class="option-copy"><strong>Backup All Conversations</strong><span>Save all your active chats.</span></span>
-                    <span class="chat-icon all-chats-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="m16 3 13 7-13 7L3 10l13-7Zm-13 13 13 7 13-7M3 22l13 7 13-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-                </label>
-                <label class="backup-option individual-option">
-                    <input type="radio" name="backup-option" value="individual">
-                    <span class="radio-mark" aria-hidden="true"></span>
-                    <span class="option-copy"><strong>Backup Individual Chats</strong><span>Select the conversations you want to save.</span></span>
-                    <span class="chat-icon" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M5 6h22a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3h-11l-8 5v-5H5a3 3 0 0 1-3-3V9a3 3 0 0 1 3-3Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="10" cy="15.5" r="1" fill="currentColor"/><circle cx="16" cy="15.5" r="1" fill="currentColor"/><circle cx="22" cy="15.5" r="1" fill="currentColor"/></svg></span>
-                </label>
-            </div>
-
-            <section class="chat-selection" id="chat-selection" aria-label="Choose conversations to back up" hidden>
-                <div class="chat-selection-dialog" role="dialog" aria-modal="true" aria-labelledby="select-chats-title">
-                    <div class="selection-heading"><div><strong id="select-chats-title">Select chats</strong><span>Choose conversations to include in your backup.</span></div></div>
-                    <div class="chat-selection-list">
-                        <label class="chat-choice"><input type="checkbox" value="General Manager"><span class="choice-avatar">GM</span><span class="choice-copy"><strong>General Manager</strong><span>Prepare Q4 campaign summary.</span><span>Due Friday — confirm review.</span></span></label>
-                        <label class="chat-choice"><input type="checkbox" value="Team leader"><span class="choice-avatar">TL</span><span class="choice-copy"><strong>Team leader</strong><span>Draft client onboarding deck.</span><span>Key milestones &amp; budget — share by Thu.</span></span></label>
-                        <label class="chat-choice"><input type="checkbox" value="Account executive"><span class="choice-avatar">AE</span><span class="choice-copy"><strong>Account executive</strong><span>Review vendor analysis document.</span><span>Identify savings — report by tomorrow COB.</span></span></label>
-                        <label class="chat-choice"><input type="checkbox" value="Field engineer"><span class="choice-avatar">FE</span><span class="choice-copy"><strong>Field engineer</strong><span>Run gap analysis on pipeline.</span><span>Note risks — escalate before sync.</span></span></label>
-                        <label class="chat-choice"><input type="checkbox" value="Sales representative"><span class="choice-avatar">SR</span><span class="choice-copy"><strong>Sales representative</strong><span>Vendor cost estimate needed.</span><span>Include licensing, support, timeline by 3 PM.</span></span></label>
-                        <label class="chat-choice"><input type="checkbox" value="Legal counsel"><span class="choice-avatar">LC</span><span class="choice-copy"><strong>Legal counsel</strong><span>Proposal approved.</span><span>Finalize contract &amp; schedule kickoff.</span></span></label>
-                        <label class="chat-choice"><input type="checkbox" value="HR manager"><span class="choice-avatar">HR</span><span class="choice-copy"><strong>HR manager</strong><span>Stakeholder meeting tomorrow.</span><span>Prepare status report — confirm attendance today.</span></span></label>
-                    </div>
-                    <p class="selection-error" id="selection-error" role="alert" hidden>Select at least one chat to continue.</p>
-                    <div class="selection-actions"><span id="selection-count">0 chats selected</span><div class="selection-action-buttons"><button class="selection-cancel" type="button" id="cancel-selecting">Cancel</button><button type="button" id="backup-selected-chats">Backup</button></div></div>
-                </div>
-            </section>
-
             <button class="start-backup" id="start-backup" type="button">
                 <img src="../../10. Settings/Assets/backup.png" alt="" aria-hidden="true">
                 <span>Start Backup</span>
@@ -94,89 +56,37 @@
 
         <nav class="bottom-nav" aria-label="Main navigation">
             <a class="nav-item" href="../../5. Home Page/html & css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
-            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
             <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
             <a class="nav-item" href="../../12. Profile/html &amp; css files/profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
         </nav>
     </main>
     <script>
         const backupSource = new URLSearchParams(window.location.search).get("source");
-        const conversationOption = document.querySelector(".conversation-option");
-        const allOption = document.querySelector(".all-option");
-        const chatSelection = document.querySelector("#chat-selection");
-        const selectionCount = document.querySelector("#selection-count");
         const backLink = document.querySelector("#backup-back");
         const footerLinks = [...document.querySelectorAll(".bottom-nav .nav-item")];
 
-        function openChatSelector() {
-            chatSelection.hidden = false;
-            document.querySelector("#selection-error").hidden = true;
-            updateSelectionCount();
-        }
-
-        function updateSelectionCount() {
-            const count = document.querySelectorAll(".chat-choice input:checked").length;
-            selectionCount.textContent = `${count} ${count === 1 ? "chat" : "chats"} selected`;
-        }
-
         if (backupSource === "chat") {
             backLink.href = "../../7. Chat/html and css files/chats.html";
-        } else {
-            conversationOption.hidden = true;
-            allOption.querySelector("input").checked = true;
-            allOption.classList.add("is-selected");
         }
 
-        const activeFooterItem = backupSource === "footer" ? footerLinks[2] : footerLinks[0];
+        const activeFooterItem = backupSource === "chat" ? footerLinks[0] : footerLinks[1];
         activeFooterItem.classList.add("is-current");
         activeFooterItem.setAttribute("aria-current", "page");
 
-        document.querySelectorAll(".backup-option input").forEach((input) => {
-            input.addEventListener("change", () => {
-                document.querySelectorAll(".backup-option").forEach((option) => {
-                    option.classList.toggle("is-selected", option.querySelector("input").checked);
-                });
-                if (input.value === "individual" && input.checked) openChatSelector();
-                document.querySelector("#selection-error").hidden = true;
-            });
-        });
-
-        document.querySelector(".individual-option").addEventListener("click", () => {
-            if (document.querySelector('.individual-option input').checked) openChatSelector();
-        });
-
-        document.querySelector("#cancel-selecting").addEventListener("click", () => {
-            chatSelection.hidden = true;
-            updateSelectionCount();
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape" && !chatSelection.hidden) chatSelection.hidden = true;
-        });
-
-        document.querySelectorAll(".chat-choice input").forEach((checkbox) => {
-            checkbox.addEventListener("change", () => {
-                checkbox.closest(".chat-choice").classList.toggle("is-selected", checkbox.checked);
-                updateSelectionCount();
-            });
-        });
+        const startBackupButton = document.querySelector("#start-backup");
+        if (localStorage.getItem("nails-backup-up-to-date") === "true") {
+            startBackupButton.querySelector("span").textContent = "Backup up to date";
+            startBackupButton.classList.add("is-up-to-date");
+        }
 
         function startBackup() {
-            const selectedOption = document.querySelector(".backup-option input:checked");
-            const backupType = selectedOption?.value || (backupSource === "chat" ? "conversation" : "all");
-            const selectedChats = [...document.querySelectorAll(".chat-choice input:checked")].map((checkbox) => checkbox.value);
-            if (backupType === "individual" && selectedChats.length === 0) {
-                openChatSelector();
-                document.querySelector("#selection-error").hidden = false;
-                return;
-            }
-            const params = new URLSearchParams({ type: backupType, source: backupSource === "chat" ? "chat" : "footer" });
-            if (backupType === "individual") params.set("chats", selectedChats.join("|"));
+            localStorage.removeItem("nails-backup-up-to-date");
+            const backupType = backupSource === "chat" ? "conversation" : "all";
+            const params = new URLSearchParams({ type: backupType, source: backupSource === "chat" ? "chat" : "settings" });
             window.location.href = `../../9. Backup Status/html & css files/backup_status.html?${params.toString()}`;
         }
 
-        document.querySelector("#start-backup").addEventListener("click", startBackup);
-        document.querySelector("#backup-selected-chats").addEventListener("click", startBackup);
+        startBackupButton.addEventListener("click", startBackup);
     </script>
 </body>
 </html>

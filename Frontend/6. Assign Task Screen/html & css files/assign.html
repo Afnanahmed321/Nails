@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assign.css">
+    <link rel="stylesheet" href="../../Footer/footer.css">
 </head>
 <body>
     <main class="assign-page">
@@ -73,7 +74,6 @@
             <a class="nav-item is-current" aria-current="page" href="../../5. Home Page/html & css files/home.html">
                 <img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span>
             </a>
-            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
             <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html">
                 <img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span>
             </a>
@@ -86,6 +86,14 @@
     <script>
         const detailsField = document.querySelector(".details-field textarea");
         const characterCount = document.querySelector("#character-count");
+        const selectedContact = sessionStorage.getItem("nails-selected-contact");
+        if (selectedContact) {
+            const assignee = document.querySelector("#assignee");
+            if ([...assignee.options].some((option) => option.value === selectedContact || option.text === selectedContact)) {
+                assignee.value = selectedContact;
+            }
+            sessionStorage.removeItem("nails-selected-contact");
+        }
         detailsField.addEventListener("input", () => {
             characterCount.textContent = detailsField.value.length;
         });

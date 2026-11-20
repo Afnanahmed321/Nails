@@ -1,0 +1,90 @@
+* { box-sizing: border-box; }
+
+:root {
+    color-scheme: dark;
+    font-family: "IBM Plex Sans", sans-serif;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html, body { width: 100%; height: 100%; min-width: 320px; margin: 0; overflow: hidden; }
+
+body { display: flex; justify-content: center; background: #fff; color: #f5f8ff; }
+
+.contacts-page {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 412px;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    padding: 16px 15px 12px;
+    background: radial-gradient(ellipse at 50% 28%, rgba(8, 31, 80, .34), transparent 55%), linear-gradient(160deg, #030817, #020612 58%, #01040c);
+}
+
+.contacts-glow {
+    position: absolute;
+    z-index: -1;
+    top: 80px;
+    right: -140px;
+    width: 340px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 104, 255, .18), transparent 70%);
+    filter: blur(36px);
+    pointer-events: none;
+}
+
+.contacts-header { display: flex; flex: 0 0 58px; align-items: center; gap: 10px; border-bottom: 1px solid rgba(129, 153, 189, .18); }
+.back-button { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border: 1px solid rgba(74, 145, 255, .38); border-radius: 12px; color: #f3f7ff; text-decoration: none; }
+.back-button svg { width: 24px; height: 24px; }
+.header-title { flex: 1 1 auto; min-width: 0; }
+.header-title h1 { margin: 0; font-size: 20px; font-weight: 600; line-height: 1.15; }
+.header-title p { margin: 3px 0 0; color: #9daac0; font-size: 13px; line-height: 1.2; }
+.header-icon { display: grid; flex: 0 0 34px; width: 34px; height: 38px; place-items: center; padding: 0; border: 0; background: transparent; color: #f5f8ff; cursor: pointer; }
+.header-icon svg { width: 25px; height: 25px; }
+
+.contact-search { display: flex; flex: 0 0 44px; align-items: center; gap: 9px; margin-top: 10px; padding: 0 12px; border: 1px solid rgba(67, 145, 255, .55); border-radius: 14px; background: rgba(12, 23, 42, .96); color: #91c9ff; }
+.contact-search[hidden] { display: none; }
+.contact-search svg { flex: 0 0 20px; width: 20px; height: 20px; }
+.contact-search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #f4f7fc; font: 400 14px "IBM Plex Sans", sans-serif; }
+.contact-search input::placeholder { color: #8998ae; }
+
+.contacts-scroll { flex: 1 1 auto; min-height: 0; margin-top: 16px; overflow-y: auto; scrollbar-width: none; }
+.contacts-scroll::-webkit-scrollbar { display: none; }
+.contacts-section, .invite-section { display: flex; flex-direction: column; }
+.contacts-section h2, .invite-section h2 { flex: 0 0 auto; margin: 0 8px 4px; color: #a8b5c9; font-size: 14px; font-weight: 600; }
+.invite-section { margin-top: 18px; }
+.contact-list, .invite-list { display: flex; flex-direction: column; }
+.contact-row { display: flex; flex: 0 0 60px; align-items: center; gap: 10px; margin-bottom: 8px; padding: 7px 9px; border: 1px solid rgba(93, 127, 174, .32); border-radius: 16px; background: linear-gradient(110deg, rgba(15, 25, 41, .96), rgba(8, 19, 37, .98)); color: #f2f5fb; text-align: left; cursor: pointer; }
+.contact-row[hidden] { display: none; }
+.contact-row:hover, .contact-row:focus-visible { border-color: rgba(56, 160, 255, .7); outline: none; background: linear-gradient(110deg, rgba(20, 38, 62, .98), rgba(10, 29, 55, .98)); }
+.contact-avatar { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border: 1px solid rgba(129, 173, 230, .26); border-radius: 50%; background: linear-gradient(145deg, #3a4c63, #1e2a3b); color: #eaf3ff; font-size: 12px; font-weight: 600; }
+.contact-copy { display: flex; flex: 1 1 auto; min-width: 0; flex-direction: column; gap: 2px; }
+.contact-copy strong { overflow: hidden; font-size: 13px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.contact-copy small { color: #8f9db2; font-size: 11px; }
+.contact-chevron { flex: 0 0 16px; width: 16px; height: 16px; color: #8ba2c8; }
+.invite-list { gap: 8px; }
+.invite-card { display: flex; align-items: center; gap: 10px; min-height: 60px; padding: 7px 9px; border: 1px solid rgba(93, 127, 174, .32); border-radius: 16px; background: linear-gradient(110deg, rgba(15, 25, 41, .96), rgba(8, 19, 37, .98)); }
+.invite-avatar { display: grid; flex: 0 0 38px; width: 38px; height: 38px; place-items: center; border: 1px solid rgba(129, 173, 230, .24); border-radius: 50%; background: linear-gradient(145deg, #394b62, #202d40); color: #eaf3ff; font-size: 12px; font-weight: 600; }
+.invite-copy { display: flex; flex: 1 1 auto; min-width: 0; flex-direction: column; gap: 2px; }
+.invite-copy strong { overflow: hidden; color: #f1f5fc; font-size: 13px; font-weight: 500; text-overflow: ellipsis; white-space: nowrap; }
+.invite-copy small { color: #8f9db2; font-size: 11px; }
+.invite-button { flex: 0 0 auto; min-width: 62px; min-height: 32px; padding: 0 11px; border: 1px solid rgba(56, 160, 255, .8); border-radius: 999px; background: linear-gradient(110deg, #0878f9, #075eff); color: #fff; font: 600 12px "IBM Plex Sans", sans-serif; cursor: pointer; }
+.invite-button.is-sent { min-width: 82px; border-color: rgba(88, 190, 145, .45); background: rgba(31, 111, 79, .25); color: #a9e8c8; cursor: default; }
+
+.contacts-page > .bottom-nav { flex: 0 0 60px; margin-top: 8px; }
+
+@media (max-height: 700px) {
+    .contacts-page { padding-top: 10px; }
+    .contacts-header { flex-basis: 52px; }
+    .contacts-scroll { margin-top: 12px; }
+    .invite-section { margin-top: 14px; }
+    .contact-row { flex-basis: 56px; }
+    .contacts-page > .bottom-nav { flex-basis: 56px; }
+}

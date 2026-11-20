@@ -638,6 +638,12 @@ body {
     cursor: pointer;
 }
 
+.start-backup.is-up-to-date {
+    border-color: #14c9d1;
+    background: linear-gradient(110deg, #075b9b, #064c85 60%, #075b9b);
+    box-shadow: 0 0 14px rgba(0, 190, 218, .32), inset 0 1px 0 rgba(255, 255, 255, .2);
+}
+
 .start-backup img {
     width: 28px;
     height: 28px;

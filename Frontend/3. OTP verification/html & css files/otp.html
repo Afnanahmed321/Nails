@@ -23,23 +23,21 @@
         <section class="otp-content" aria-labelledby="otp-title">
             <div class="intro">
                 <h1 id="otp-title">Verify your number</h1>
-                <p>Enter the 6-digit OTP we sent to your WhatsApp on <strong>+91 98765 43210.</strong></p>
+                <p>Enter the 4-digit OTP we sent to your WhatsApp on <strong>+91 98765 43210.</strong></p>
             </div>
 
             <form class="verification-form" id="verification-form">
                 <fieldset class="otp-inputs">
-                    <legend class="visually-hidden">Enter the 6-digit verification code</legend>
+                    <legend class="visually-hidden">Enter the 4-digit verification code</legend>
                     <input aria-label="Digit 1" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]*" maxlength="1" autofocus>
                     <input aria-label="Digit 2" inputmode="numeric" pattern="[0-9]*" maxlength="1">
                     <input aria-label="Digit 3" inputmode="numeric" pattern="[0-9]*" maxlength="1">
                     <input aria-label="Digit 4" inputmode="numeric" pattern="[0-9]*" maxlength="1">
-                    <input aria-label="Digit 5" inputmode="numeric" pattern="[0-9]*" maxlength="1">
-                    <input aria-label="Digit 6" inputmode="numeric" pattern="[0-9]*" maxlength="1">
                 </fieldset>
 
                 <p class="resend-timer" aria-live="polite">
-                    <span class="resend-label">Resend OTP in</span>
-                    <button class="resend-button" type="button" disabled>00:29</button>
+                    <span>OTP will be valid for 10 min</span>
+                    <button class="resend-button" type="button">Resend</button>
                 </p>
 
                 <button class="verify-button" type="submit">
@@ -54,43 +52,11 @@
         </section>
     </main>
     <script>
-        const resendLabel = document.querySelector(".resend-label");
         const resendButton = document.querySelector(".resend-button");
-        let remainingSeconds = 29;
-        let countdown;
-
-        function startResendCountdown() {
-            clearInterval(countdown);
-            remainingSeconds = 29;
-            resendLabel.textContent = "Resend OTP in";
-            resendButton.disabled = true;
-            updateResendTimer();
-
-            countdown = setInterval(() => {
-                remainingSeconds -= 1;
-                updateResendTimer();
-
-                if (remainingSeconds <= 0) {
-                    clearInterval(countdown);
-                    resendLabel.textContent = "";
-                    resendButton.textContent = "Resend OTP";
-                    resendButton.disabled = false;
-                }
-            }, 1000);
-        }
-
-        function updateResendTimer() {
-            const minutes = String(Math.floor(remainingSeconds / 60)).padStart(2, "0");
-            const seconds = String(remainingSeconds % 60).padStart(2, "0");
-            resendButton.textContent = `${minutes}:${seconds}`;
-        }
-
-        resendButton.addEventListener("click", startResendCountdown);
-        startResendCountdown();
 
         const submittedPhone = sessionStorage.getItem("nails-phone");
         if (submittedPhone) {
-            document.querySelector(".intro p").innerHTML = `Enter the 6-digit OTP we sent to your WhatsApp on <strong>${submittedPhone}.</strong>`;
+            document.querySelector(".intro p").innerHTML = `Enter the 4-digit OTP we sent to your WhatsApp on <strong>${submittedPhone}.</strong>`;
         }
 
         document.querySelector("#verification-form").addEventListener("submit", (event) => {

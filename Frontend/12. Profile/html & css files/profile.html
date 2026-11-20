@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="profile.css">
+    <link rel="stylesheet" href="../../Footer/footer.css">
 </head>
 <body>
     <main class="profile-page">
@@ -29,20 +30,28 @@
 
             <form class="profile-form" id="profile-form" aria-label="Profile details">
                 <div class="profile-form-heading"><div><h2>Personal details</h2><p>Keep your account information up to date.</p></div><button class="edit-button" id="edit-profile" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 5 5 5M4 20l4.2-.9L20 7.3 16.7 4 4.9 15.8 4 20Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>Edit</button></div>
-                <label class="profile-field"><span>Full name</span><input id="profile-name" type="text" value="Yaseen" readonly required></label>
-                <label class="profile-field"><span>Designation</span><input id="profile-designation" type="text" value="General Manager" readonly required></label>
-                <label class="profile-field"><span>Email address</span><input id="profile-email" type="email" value="yaseen@nails.app" readonly required></label>
-                <label class="profile-field"><span>Mobile number</span><input id="profile-phone" type="tel" value="+91 98765 43210" readonly required></label>
+                <label class="profile-field"><span>Role / Position</span><input id="profile-designation" type="text" value="General Manager" readonly required></label>
+                <label class="profile-field"><span>Mobile number</span><input id="profile-phone" type="tel" inputmode="tel" autocomplete="tel" value="+91 98765 43210" readonly required></label>
                 <div class="profile-actions" id="profile-actions" hidden><button class="profile-cancel" id="cancel-profile-edit" type="button">Cancel</button><button class="profile-save" type="submit">Save changes</button></div>
                 <p class="profile-status" id="profile-status" role="status" aria-live="polite"></p>
             </form>
 
-            <button class="logout-button" type="button"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M12 4H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6m4-5 5-5-5-5m5 5H10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Logout</button>
+            <button class="logout-button" id="logout-trigger" type="button"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M12 4H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h6m4-5 5-5-5-5m5 5H10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Logout</button>
+        </section>
+
+        <section class="logout-confirmation" id="logout-confirmation" role="dialog" aria-modal="true" aria-labelledby="logout-title" hidden>
+            <div class="logout-dialog">
+                <span class="logout-dialog-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6m3-4 4-4-4-4m4 4H9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <h2 id="logout-title">Are you sure you want to log out?</h2>
+                <div class="logout-dialog-actions">
+                    <button type="button" id="cancel-logout">Cancel</button>
+                    <button type="button" id="confirm-logout">Log out</button>
+                </div>
+            </div>
         </section>
 
         <nav class="bottom-nav" aria-label="Main navigation">
             <a class="nav-item" href="../../5. Home Page/html & css files/home.html"><img src="../../Footer/Assets/Home.png" alt="" aria-hidden="true"><span>Home</span></a>
-            <a class="nav-item" href="../../13. Invite/html &amp; css files/invite.html"><img src="../../Footer/Assets/Invite.png" alt="" aria-hidden="true"><span>Invite</span></a>
             <a class="nav-item" href="../../10. Settings/html &amp; css files/settings.html"><img src="../../Footer/Assets/Settings.png" alt="" aria-hidden="true"><span>Settings</span></a>
             <a class="nav-item is-current" aria-current="page" href="profile.html"><img src="../../Footer/Assets/Profile.png" alt="" aria-hidden="true"><span>Profile</span></a>
         </nav>
@@ -55,12 +64,21 @@
             const actions = document.getElementById('profile-actions');
             const status = document.getElementById('profile-status');
             const storageKey = 'nails-profile-details';
-            const defaults = ['Yaseen', 'General Manager', 'yaseen@nails.app', '+91 98765 43210'];
+            const defaults = ['General Manager', '+91 98765 43210'];
 
-            try {
-                const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
-                if (Array.isArray(saved) && saved.length === fields.length) fields.forEach((field, index) => { field.value = saved[index]; });
-            } catch (_) {}
+            function readSavedValues() {
+                try {
+                    const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+                    if (Array.isArray(saved) && saved.length === 4) {
+                        return [saved[1], saved[3]];
+                    }
+                    if (Array.isArray(saved) && saved.length === fields.length) return saved;
+                } catch (_) {}
+                return defaults;
+            }
+
+            const savedProfile = readSavedValues();
+            fields.forEach((field, index) => { field.value = savedProfile[index]; });
 
             function setEditing(editing) {
                 fields.forEach((field) => { field.readOnly = !editing; });
@@ -72,12 +90,8 @@
 
             editButton.addEventListener('click', () => setEditing(true));
             document.getElementById('cancel-profile-edit').addEventListener('click', () => {
-                try {
-                    const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
-                    fields.forEach((field, index) => { field.value = Array.isArray(saved) ? saved[index] : defaults[index]; });
-                } catch (_) {
-                    fields.forEach((field, index) => { field.value = defaults[index]; });
-                }
+                const saved = readSavedValues();
+                fields.forEach((field, index) => { field.value = saved[index]; });
                 setEditing(false);
             });
 
@@ -87,6 +101,32 @@
                 localStorage.setItem(storageKey, JSON.stringify(fields.map((field) => field.value.trim())));
                 setEditing(false);
                 status.textContent = 'Profile details saved on this device.';
+            });
+        })();
+
+        (() => {
+            const confirmation = document.getElementById('logout-confirmation');
+            const trigger = document.getElementById('logout-trigger');
+            const cancelButton = document.getElementById('cancel-logout');
+
+            function closeConfirmation() {
+                confirmation.hidden = true;
+                trigger.focus();
+            }
+
+            trigger.addEventListener('click', () => {
+                confirmation.hidden = false;
+                cancelButton.focus();
+            });
+            cancelButton.addEventListener('click', closeConfirmation);
+            confirmation.addEventListener('click', (event) => {
+                if (event.target === confirmation) closeConfirmation();
+            });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !confirmation.hidden) closeConfirmation();
+            });
+            document.getElementById('confirm-logout').addEventListener('click', () => {
+                window.location.href = '../../2. Welcome/html & css files/welcome.html';
             });
         })();
     </script>

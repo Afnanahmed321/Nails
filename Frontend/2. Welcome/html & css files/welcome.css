@@ -57,19 +57,9 @@ body {
 
     overflow: hidden;
 
-    background:
-        radial-gradient(
-            ellipse at 50% 28%,
-            rgba(9, 30, 77, 0.42) 0%,
-            rgba(4, 13, 32, 0.35) 35%,
-            transparent 65%
-        ),
-        linear-gradient(
-            160deg,
-            #030817 0%,
-            #020612 52%,
-            #01040c 100%
-        );
+    background-color: #070b19;
+    background-image:
+        radial-gradient(ellipse at 50% 38%, rgba(5, 10, 26, 0.28), rgba(3, 7, 19, 0.77) 72%, #030611 100%);
 }
 
 
@@ -167,39 +157,7 @@ body {
     width: 100%;
     max-width: 100%;
 
-    margin-top: clamp(48px, 5.5svh, 65px);
-}
-
-.intro {
-    text-align: center;
-}
-
-.intro h1 {
-    margin-left: 0;
-    color: #ffffff;
-
-    font-size: clamp(36px, 10.5vw, 42px);
-    font-weight: 700;
-
-    line-height: 1.08;
-    letter-spacing: -1.2px;
-}
-
-.intro h1 span {
-    color: #56a5ff;
-}
-
-.description {
-    margin-top: 16px;
-    margin-left: 0;
-
-    color: #9299aa;
-
-    font-size: 16px;
-    font-weight: 400;
-
-    line-height: 1.48;
-    letter-spacing: 0.05px;
+    margin-top: clamp(24px, 4svh, 36px);
 }
 
 
@@ -214,7 +172,7 @@ body {
     width: 100%;
 
     gap: 17px;
-    margin-top: clamp(48px, 5.5svh, 58px);
+    margin-top: 20px;
 }
 
 
@@ -336,12 +294,12 @@ body {
 .whatsapp-button {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
 
     width: 100%;
     height: 54px;
 
-    gap: 13px;
+    gap: 10px;
     padding: 0 20px;
 
     border: 1px solid rgba(82, 170, 255, 0.65);
@@ -364,7 +322,7 @@ body {
     font-size: 16px;
     font-weight: 600;
 
-    text-align: left;
+    text-align: center;
 
     cursor: pointer;
 
@@ -382,17 +340,6 @@ body {
 }
 
 
-/* WHATSAPP ICON */
-
-.whatsapp-icon {
-    flex: 0 0 auto;
-
-    width: 36px;
-    height: 36px;
-    object-fit: contain;
-}
-
-
 /* ARROW ICON */
 
 .arrow-icon {
@@ -401,42 +348,7 @@ body {
     width: 27px;
     height: 27px;
 
-    margin-left: auto;
-}
-
-
-/* ================================
-   PRIVACY NOTE
-================================ */
-
-.privacy-note {
-    display: flex;
-    align-items: flex-start;
-
-    gap: 11px;
-
-    margin: 24px 22px 0;
-
-    color: #a4aab8;
-}
-
-.privacy-note svg {
-    flex: 0 0 auto;
-
-    width: 26px;
-    height: 30px;
-
-    margin-top: 2px;
-
-    color: #f3f5fa;
-}
-
-.privacy-note p {
-    font-size: 13px;
-    font-weight: 400;
-
-    line-height: 1.5;
-    letter-spacing: 0.05px;
+    margin-left: 0;
 }
 
 
@@ -480,20 +392,8 @@ body {
         font-size: 36px;
     }
 
-    .welcome-content {
-        margin-top: 48px;
-    }
-
-    .intro h1 {
-        font-size: 35px;
-    }
-
-    .description {
-        font-size: 14px;
-    }
-
     .login-form {
-        margin-top: 35px;
+        margin-top: 0;
     }
 
     .phone-field,
@@ -508,10 +408,6 @@ body {
         font-size: 14px;
     }
 
-    .privacy-note {
-        margin-right: 12px;
-        margin-left: 12px;
-    }
 }
 
 
@@ -537,17 +433,10 @@ body {
         margin-top: 38px;
     }
 
-    .description {
-        margin-top: 11px;
-    }
-
     .login-form {
-        margin-top: 30px;
+        margin-top: 0;
     }
 
-    .privacy-note {
-        margin-top: 18px;
-    }
 }
 
 

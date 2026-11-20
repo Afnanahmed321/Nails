@@ -34,11 +34,10 @@ body {
     flex-direction: column;
     width: 100%;
     max-width: 412px;
-    height: 100vh;
-    height: 100svh;
+    height: 100dvh;
     min-height: 0;
     overflow: hidden;
-    padding: 18px 15px 20px;
+    padding: 18px 15px 32px;
     background: linear-gradient(160deg, #030817 0%, #020612 52%, #01040c 100%);
 }
 
@@ -304,7 +303,7 @@ body {
 @media (max-height: 760px) {
     .settings-page {
         padding-top: 10px;
-        padding-bottom: 14px;
+        padding-bottom: 28px;
     }
 
     .settings-content {

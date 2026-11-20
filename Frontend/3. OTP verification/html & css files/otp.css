@@ -40,9 +40,9 @@ body {
     min-height: 0;
     overflow: hidden;
     padding: clamp(64px, 10svh, 90px) 22px 32px;
-    background:
-        radial-gradient(ellipse at 50% 30%, rgba(9, 30, 77, 0.35), transparent 52%),
-        linear-gradient(160deg, #030817 0%, #020612 52%, #01040c 100%);
+    background-color: #070b19;
+    background-image:
+        radial-gradient(ellipse at 50% 38%, rgba(5, 10, 26, 0.28), rgba(3, 7, 19, 0.77) 72%, #030611 100%);
 }
 
 .ambient-glow {
@@ -99,8 +99,8 @@ body {
 .intro h1 {
     margin: 0;
     color: #f8f9fc;
-    font-size: clamp(29px, 8.5vw, 36px);
-    font-weight: 700;
+    font-size: clamp(23px, 7vw, 29px);
+    font-weight: 400;
     letter-spacing: -0.7px;
     line-height: 1.15;
 }
@@ -125,7 +125,7 @@ body {
 
 .otp-inputs {
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
     width: 100%;
     margin: 0;
@@ -156,6 +156,9 @@ body {
 }
 
 .resend-timer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 29px 0 0;
     color: #a4aab8;
     font-size: 15px;
@@ -168,7 +171,7 @@ body {
     background: none;
     color: #2998ff;
     font-family: inherit;
-    font-weight: 600;
+    font-weight: 700;
     font-size: inherit;
     cursor: default;
 }
@@ -258,7 +261,7 @@ body {
     }
 
     .intro h1 {
-        font-size: 28px;
+        font-size: 22px;
     }
 
     .intro p {
